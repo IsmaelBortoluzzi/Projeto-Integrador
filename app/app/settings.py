@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-c&jm_sg(e_i36fd1^2pw4*c(b$f0r7+(gk0p1qg*f*im3!xnb(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['*']
 EMAIL_BACKEND = 'django.app.mail.backends.console.EmailBackend'
 
 
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'client',
+    'home',
 ]
 
 MIDDLEWARE = [
