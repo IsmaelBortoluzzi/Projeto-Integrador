@@ -19,6 +19,26 @@
                 <li class="nav-item">
                     <a class="nav-link" href="">BLAH</a>
                 </li>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Clientes
+                    </button>
+                    <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item text-white" href="#">Listar</a>
+                        <a class="dropdown-item text-white" href="#">Adicionar</a>
+                        <a class="dropdown-item text-white" href="#">Excluir</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Endereços
+                    </button>
+                    <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item text-white" href="{% url 'list-address' %}">Listar</a>
+                        <a class="dropdown-item text-white" href="{% url 'create-address' %}">Adicionar</a>
+                        <a class="dropdown-item text-white" href="#">Excluir</a>
+                    </div>
+                </div>
             </ul>
             <form class="form-inline my-2 my-lg-0 ml-lg-4" action="/busca/">
                 <input name="termo" value="{{ request.GET.termo }}" class="form-control mr-sm-2" type="search" placeholder="Pesquisar"
