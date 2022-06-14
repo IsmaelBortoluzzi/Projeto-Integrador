@@ -9,7 +9,6 @@ class ClientForm(forms.Form):
     birth_date = forms.DateTimeField(
         widget=forms.DateTimeInput(attrs={
             'placeholder': '__/__/____',
-            'class': 'form-control',
         },
             format='%d/%m/%Y',
         )
