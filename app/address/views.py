@@ -63,3 +63,18 @@ class ListAddress(ListView):
             qs = qs.filter(id=self.codigo)
 
         return qs
+
+
+def detail_address(request, pk):  # pk: address primary key
+
+    if request.method == 'GET':
+        context = dict()
+
+        query = """SELECT A.* FROM address_address A WHERE id = %s""" % str(pk)
+        address = Address.objects.raw(query)
+
+        context['address'] = address
+
+        return render(request, 'address/detail_address.html', context)
+
+

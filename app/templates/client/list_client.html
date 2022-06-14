@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row mt-lg-5">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped text-white">
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>NOME</th>
+                        <th>APELIDO</th>
+                        <th>DATA DE NASCIMENTO</th>
+                        <th>CPF</th>
+                        <th>NÚMERO</th>
+                        <th>ENDEREÇO</th>
+                    </tr>
+                {% for client in clients %}
+                    <tr>
+                        <td>{{ client.pk }}</td>
+                        <td>{{ client.first_name }}</td>
+                        <td>{{ client.nickname }}</td>
+                        <td>{{ client.birth_date }}</td>
+                        <td>{{ client.cpf }}</td>
+                        <td>{{ client.phone_number }}</td>
+                        {% if client.address %}
+                            <td><a href="{% url 'detail-address' client.address.id %}"></a>Endereço</td>
+                        {% else %}
+                            <td>Endereço não informado</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

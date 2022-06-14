@@ -3,5 +3,5 @@ from .views import *
 
 urlpatterns = [
     path('create/', create_client, name='create-client'),
-    # path('list/', ListClient.as_view(), name='list-client'),
+    path('list/', ListClient.as_view(), name='list-client'),
 ]

@@ -11,7 +11,8 @@ class ClientForm(forms.Form):
             'placeholder': '__/__/____',
         },
             format='%d/%m/%Y',
-        )
+        ),
+        required=False
     )
     cpf = forms.CharField(max_length=11, label='CPF')
     phone_number = forms.CharField(max_length=32, required=False, label='Número de Telefone')
