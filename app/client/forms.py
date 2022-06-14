@@ -1,3 +1,5 @@
+import datetime
+
 from django import forms
 
 
@@ -5,11 +7,13 @@ class ClientForm(forms.Form):
     first_name = forms.CharField(max_length=128, label='Nome')
     nickname = forms.CharField(max_length=128, label='Apelido', required=False)
     birth_date = forms.DateTimeField(
-        input_formats=['%d/%m/%Y'],
         widget=forms.DateTimeInput(attrs={
-            'class': 'form-control datetimepicker-input',
-            'data-target': '#datetimepicker1'
-        }))
+            'placeholder': '__/__/____',
+            'class': 'form-control',
+        },
+            format='%d/%m/%Y',
+        )
+    )
     cpf = forms.CharField(max_length=11, label='CPF')
     phone_number = forms.CharField(max_length=32, required=False, label='Número de Telefone')
 
@@ -22,5 +26,15 @@ class ClientForm(forms.Form):
         if not self.cleaned_data.get('cpf').isdigit():
             raise forms.ValidationError('CPF deve conter somente dígitos!')
 
+        birth_date = self.cleaned_data.get('birth_date')
 
+        if birth_date is None:
+            return self.cleaned_data
 
+        # converts date format into DB date pattern
+        self.cleaned_data.update(
+            {
+                'birth_date': datetime.datetime.strptime(birth_date.strftime('%Y-%m-%d'), '%Y-%m-%d')
+            }
+        )
+        return self.cleaned_data

@@ -22,4 +22,6 @@ def create_client(request):
         if client_form.is_valid():
             new_client = create_client_from_clientform(client_form, commit=True)
 
+        # TODO importar o messages pra dizer pro user pq o form veio inválido
+
         return HttpResponseRedirect(reverse('home'))
