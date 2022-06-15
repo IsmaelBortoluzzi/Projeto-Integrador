@@ -24,10 +24,14 @@
                         <td>{{ client.cpf }}</td>
                         <td>{{ client.phone_number }}</td>
                         {% if client.address_id is not None %}
-                            <td><a href="{% url 'detail-address' client.address_id %}">Endereço</a></td>
+                            <td>
+                                <a href="{% url 'detail-address' client.address_id %}">
+                                    Endereço
+                                </a>
+                            </td>
                         {% else %}
                             <td>
-                                <a class="create_address" onclick="createAddress({{ client.pk }})" href="#">
+                                <a onclick="createAddress({{ client.pk }})" href="#">
                                     Cadastrar Endereço
                                 </a>
                             </td>
