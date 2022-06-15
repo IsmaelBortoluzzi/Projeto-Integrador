@@ -1,4 +1,6 @@
-from .models import Client
+from .models import Client, Address
+
+# CLIENT UTILS
 
 
 def create_client_from_clientform(client_form, commit=False):
@@ -15,3 +17,31 @@ def create_client_from_clientform(client_form, commit=False):
         new_client.save()
 
     return new_client
+
+
+# ADDRESS UTILS
+
+def create_address_from_addressform(address_form, client_id, commit=False):
+    new_address = Address()
+
+    new_address.cep = address_form.cleaned_data.get('cep')
+    new_address.street = address_form.cleaned_data.get('street')
+    new_address.number = address_form.cleaned_data.get('number')
+    new_address.district = address_form.cleaned_data.get('district')
+    new_address.city = address_form.cleaned_data.get('city')
+    new_address.state = address_form.cleaned_data.get('state')
+    new_address.client = Client.objects.filter(id=client_id).first()
+
+    if commit is True:
+        new_address.save()
+
+    return new_address
+
+
+def first(query_set):
+    try:
+        query_set = query_set[0]
+    except IndexError:
+        query_set = None
+
+    return query_set

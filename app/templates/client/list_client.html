@@ -23,11 +23,16 @@
                         <td>{{ client.birth_date }}</td>
                         <td>{{ client.cpf }}</td>
                         <td>{{ client.phone_number }}</td>
-                        {% if client.address %}
-                            <td><a href="{% url 'detail-address' client.address.id %}"></a>Endereço</td>
+                        {% if client.address_id is not None %}
+                            <td><a href="{% url 'detail-address' client.address_id %}">Endereço</a></td>
                         {% else %}
-                            <td>Endereço não informado</td>
+                            <td>
+                                <a class="create_address" onclick="createAddress({{ client.pk }})" href="#">
+                                    Cadastrar Endereço
+                                </a>
+                            </td>
                         {% endif %}
+                        <td><a href="#">Editar</a></td>
                     </tr>
                 {% endfor %}
                 </table>
@@ -35,4 +40,17 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block extrajs %}
+    <script>
+
+        var createAddress = fk => {
+            window.location.href = window.location.origin +
+                "{% url 'create-address' %}" +
+                "?fk=" +
+                fk;
+        }
+
+    </script>
 {% endblock %}

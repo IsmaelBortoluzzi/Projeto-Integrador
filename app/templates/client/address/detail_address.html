@@ -16,13 +16,15 @@
                         <th>ESTADO</th>
                     </tr>
                     <tr>
-                        <td>{{ address.pk }}</td>
-                        <td>{{ address.cep }}</td>
-                        <td>{{ address.street }}</td>
-                        <td>{{ address.number }}</td>
-                        <td>{{ address.district }}</td>
-                        <td>{{ address.city }}</td>
-                        <td>{{ address.state }}</td>
+                        {% if address is not None %}
+                            <td>{{ address.pk }}</td>
+                            <td>{{ address.cep }}</td>
+                            <td>{{ address.street }}</td>
+                            <td>{{ address.number }}</td>
+                            <td>{{ address.district }}</td>
+                            <td>{{ address.city }}</td>
+                            <td>{{ address.state }}</td>
+                        {% endif %}
                     </tr>
                 </table>
             </div>
