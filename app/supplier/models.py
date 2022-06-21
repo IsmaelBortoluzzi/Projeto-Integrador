@@ -16,5 +16,7 @@ class Supplier(models.Model):
         return address
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        self.created = datetime.datetime.now()
+        if not self.id:
+            self.created = datetime.datetime.now()
+
         super(Supplier, self).save(force_insert, force_update, using, update_fields)
