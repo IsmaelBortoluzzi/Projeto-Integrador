@@ -37,11 +37,3 @@ def create_address_from_addressform(address_form, client_id, commit=False):
 
     return new_address
 
-
-def first(query_set):
-    try:
-        query_set = query_set[0]
-    except IndexError:
-        query_set = None
-
-    return query_set

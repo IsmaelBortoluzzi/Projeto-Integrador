@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row mt-lg-5">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped text-white">
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>NOME</th>
+                        <th>SIGLA</th>
+                        <th>ATIVO?</th>
+                        <th>FORNECEDOR</th>
+                        <th>EDITAR</th>
+                    </tr>
+                {% for brand in brands %}
+                    <tr>
+                        <td>{{ brand.pk }}</td>
+                        <td>{{ brand.name }}</td>
+                        <td>{{ brand.initials }}</td>
+                        <td>
+                            {% if brand.is_active is True %}
+                                SIM
+                            {% else %}
+                                NÃO
+                            {% endif %}
+                        </td>
+                        {% if brand.supplier_id is not None %}
+                            <td>
+                                <a href="{% url 'detail-supplier' brand.supplier_id %}">
+                                    Fornecedor
+                                </a>
+                            </td>
+                        {% else %}
+                            <td>
+                                <p>
+                                    >>>> EM DESENVOLVIMENTO <<<<
+                                </p>
+                            </td>
+                        {% endif %}
+                        <td><a href="#">Editar</a></td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

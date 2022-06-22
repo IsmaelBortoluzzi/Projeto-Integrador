@@ -10,8 +10,10 @@ class SupplierAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Supplier.objects.none()
 
-        if not self.request.user.is_authenticated:
-            return qs
+        # if not self.request.user.is_authenticated:
+        #     return qs
+        if self.q:
+            self.q = self.q.encode('iso-8859-1', 'ignore').decode('iso-8859-1').upper()
 
         qs = Supplier.objects.all()
 

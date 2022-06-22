@@ -8,8 +8,8 @@ from .models import Client, Address
 from .utils import (
     create_client_from_clientform,
     create_address_from_addressform,
-    first,
 )
+from utils_global.raw_query_utils import first
 
 
 #  CLIENT VIEWS
