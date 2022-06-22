@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row mt-lg-5">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped text-white">
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>RAZÃO SOCIAL</th>
+                        <th>NOME FANTASIA</th>
+                        <th>CNPJ</th>
+                        <th>CRIADO EM</th>
+                        <th>EMAIL</th>
+                        <th>TELEFONE</th>
+                    </tr>
+                    {% for supplier in suppliers %}
+                        <tr>
+                            {% if supplier is not None %}
+                                <td>{{ supplier.pk }}</td>
+                                <td>{{ supplier.corporate_name }}</td>
+                                <td>{{ supplier.fantasy_name }}</td>
+                                <td>{{ supplier.cnpj }}</td>
+                                <td>{{ supplier.created }}</td>
+                                <td>{{ supplier.email }}</td>
+                                <td>{{ supplier.phone_number }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
