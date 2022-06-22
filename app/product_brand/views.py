@@ -3,9 +3,9 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView
 
-from product_brand.forms import BrandForm
+from product_brand.forms import BrandForm, BrandEditForm
 from product_brand.models import Brand
-from product_brand.utils import create_brand_from_brandform
+from product_brand.utils import create_brand_from_brandform, create_brand_from_brandeditform
 
 
 def create_brand(request):
@@ -56,6 +56,41 @@ class ListBrand(ListView):
         elif self.nome is not None:
             query = query + " WHERE PC.name = %s" % str(self.nome)
 
+        query = query + " ORDER BY PC.is_active DESC"
+
         qs = Brand.objects.raw(query)
 
         return qs
+
+
+def edit_brand(request, pk):
+
+    if request.method == 'GET':
+
+        brand = Brand.objects.filter(id=pk).select_related('supplier').first()
+
+        if brand is None:
+            raise ValueError('marca não existe!')
+
+        initial = {
+            'name': brand.name,
+            'initials': brand.initials,
+            'supplier': brand.supplier,
+            'is_active': brand.is_active,
+        }
+
+        context = {
+            'brand_form': BrandEditForm(initial=initial)
+        }
+
+        return render(request, 'brand/create_brand.html', context)
+
+    if request.method == 'POST':
+        brand_edit_from = BrandEditForm(request.POST)
+
+        if brand_edit_from.is_valid():
+            new_brand = create_brand_from_brandeditform(brand_edit_from, pk, commit=True)
+
+        # TODO importar o messages pra dizer pro user pq o form veio inválido
+
+        return HttpResponseRedirect(reverse('list-brand'))

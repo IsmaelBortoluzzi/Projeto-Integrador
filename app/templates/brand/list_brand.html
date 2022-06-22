@@ -39,7 +39,7 @@
                                 </p>
                             </td>
                         {% endif %}
-                        <td><a href="#">Editar</a></td>
+                        <td><a href="{% url 'edit-brand' brand.pk %}">Editar</a></td>
                     </tr>
                 {% endfor %}
                 </table>
