@@ -7,11 +7,6 @@ from supplier.models import Supplier
 class BrandForm(forms.Form):
     name = forms.CharField(max_length=255, label='Nome', required=True)
     initials = forms.CharField(max_length=16, label='Iniciais', required=False)  # sigla
-    supplier = forms.ModelChoiceField(
-        queryset=Supplier.objects.all(),
-        label='Fornecedor',
-        required=False
-    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -22,12 +17,6 @@ class BrandForm(forms.Form):
 class BrandEditForm(forms.Form):
     name = forms.CharField(max_length=255, label='Nome', required=True)
     initials = forms.CharField(max_length=16, label='Iniciais', required=False)  # sigla
-    is_active = forms.BooleanField(label='Ativo?', required=False)
-    supplier = forms.ModelChoiceField(
-        queryset=Supplier.objects.all(),
-        label='Fornecedor',
-        required=False
-    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -46,8 +46,7 @@ class ListBrand(ListView):
 
     def get_queryset(self):
         query = """
-            SELECT PC.*, SS.id AS supplier_id FROM product_brand PC
-            LEFT JOIN supplier_supplier SS ON PC.id = SS.id
+            SELECT PC.* FROM product_brand PC
         """
 
         if self.codigo is not None:
@@ -55,8 +54,6 @@ class ListBrand(ListView):
 
         elif self.nome is not None:
             query = query + " WHERE PC.name = %s" % str(self.nome)
-
-        query = query + " ORDER BY PC.is_active DESC"
 
         qs = Brand.objects.raw(query)
 
