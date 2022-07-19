@@ -23,3 +23,4 @@ class Address(models.Model):
     city = models.CharField(max_length=256, db_column='city', default='')
     state = models.CharField(max_length=2, db_column='state', default='')
     client = models.ForeignKey(Client, on_delete=models.CASCADE, db_column='client_id', null=True)
+    supplier = models.ForeignKey(Supplier, db_column='supplier_id', on_delete=models.CASCADE, null=True)
