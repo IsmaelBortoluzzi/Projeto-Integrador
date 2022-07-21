@@ -6,7 +6,7 @@ from .models import Client, Address
 def create_client_from_clientform(client_form, commit=False):
     new_client = Client()
 
-    new_client.first_name = client_form.cleaned_data.get('first_name')
+    new_client.full_name = client_form.cleaned_data.get('full_name')
     new_client.nickname = client_form.cleaned_data.get('nickname')
     new_client.birth_date = client_form.cleaned_data.get('birth_date')
     new_client.cpf = client_form.cleaned_data.get('cpf')

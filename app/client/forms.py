@@ -4,7 +4,7 @@ from django import forms
 
 
 class ClientForm(forms.Form):
-    first_name = forms.CharField(max_length=128, label='Nome')
+    full_name = forms.CharField(max_length=128, label='Nome')
     nickname = forms.CharField(max_length=128, label='Apelido', required=False)
     birth_date = forms.DateTimeField(
         widget=forms.DateTimeInput(attrs={

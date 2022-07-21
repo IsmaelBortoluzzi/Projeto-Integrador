@@ -22,16 +22,22 @@
                 <li class="nav-item">
                     <a class="nav-link" href="">Comandas</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">BLAH</a>
-                </li>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Contas A Pagar
+                    </button>
+                    <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item text-white" href="{% url 'create-bills-tobe-paid' %}">Adicionar</a>
+                        <a class="dropdown-item text-white" href="{% url 'list-bills-tobe-paid' %}">Listar</a>
+                    </div>
+                </div>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Fornecedores
                     </button>
                     <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item text-white" href="{% url 'create-supplier' %}">Adicionar</a>
                         <a class="dropdown-item text-white" href="{% url 'list-supplier' %}">Listar</a>
-{#                        <a class="dropdown-item text-white" href="{% url 'create-supplier' %}">Adicionar</a>#}
                     </div>
                 </div>
                 <div class="dropdown">
@@ -39,8 +45,8 @@
                         Marcas
                     </button>
                     <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item text-white" href="{% url 'list-brand' %}">Listar</a>
                         <a class="dropdown-item text-white" href="{% url 'create-brand' %}">Adicionar</a>
+                        <a class="dropdown-item text-white" href="{% url 'list-brand' %}">Listar</a>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -48,8 +54,8 @@
                         Clientes
                     </button>
                     <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item text-white" href="{% url 'list-client' %}">Listar</a>
                         <a class="dropdown-item text-white" href="{% url 'create-client' %}">Adicionar</a>
+                        <a class="dropdown-item text-white" href="{% url 'list-client' %}">Listar</a>
                     </div>
                 </div>
 {#                <div class="dropdown">#}
@@ -67,8 +73,8 @@
                         Produtos
                     </button>
                     <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item text-white" href="{% url 'list-product' %}">Listar</a>
                         <a class="dropdown-item text-white" href="{% url 'create-product' %}">Adicionar</a>
+                        <a class="dropdown-item text-white" href="{% url 'list-product' %}">Listar</a>
                     </div>
                 </div>
             </ul>

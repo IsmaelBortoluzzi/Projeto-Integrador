@@ -36,8 +36,16 @@ def create_client(request):
 def edit_client(request, pk):
 
     if request.method == 'GET':
+        client = Client.objects.get(pk=pk)
+        initial = {
+            'full_name': client.full_name,
+            'nickname': client.nickname,
+            'birth_date': client.birth_date,
+            'cpf': client.cpf,
+            'phone_number': client.phone_number,
+        }
         context = {
-            'client_form': ClientForm(instance=Client.objects.get(pk=pk))
+            'client_form': ClientForm(initial=initial)
         }
         return render(request, 'client/edit_client.html', context)
 
@@ -45,7 +53,7 @@ def edit_client(request, pk):
         client_form = ClientForm(request.POST)
 
         if client_form.is_valid():
-            updated_client = client_form.save(commit=False)
+            updated_client = create_client_from_clientform(client_form, commit=False)
             updated_client.id = pk
             updated_client.save(force_update=True)
 

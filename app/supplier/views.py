@@ -1,7 +1,30 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import ListView
 
 from supplier.models import Supplier
+from supplier.forms import SupplierForm
+from supplier.utils import create_supplier_from_supplierform
+
+
+def create_supplier(request):
+
+    if request.method == 'GET':
+        context = {
+            'supplier_form': SupplierForm()
+        }
+        return render(request, 'supplier/create_supplier.html', context)
+
+    if request.method == 'POST':
+        supplier_form = SupplierForm(request.POST)
+
+        if supplier_form.is_valid():
+            new_supplier = create_supplier_from_supplierform(supplier_form, commit=True)
+
+        # TODO importar o messages pra dizer pro user pq o form veio inválido
+
+        return HttpResponseRedirect(reverse('home'))
 
 
 class ListSupplier(ListView):

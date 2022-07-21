@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row mt-lg-5">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped text-white">
+                    <tr>
+                        <td>{{ bill_tobe_paid.pk }}</td>
+                        <td>{{ bill_tobe_paid.bill_type }}</td>
+                        <td>{{ bill_tobe_paid.installment_number }}</td>
+                        <td>{{ bill_tobe_paid.installment_value }}</td>
+                        <td>{{ bill_tobe_paid.due_date }}</td>
+                        <td>EM DESENVOLVIMENTO</td>
+                        {# <th><a href="{% url 'detail-entry-document' bill_tobe_paid.entry_document %}">Documento de Entrada</a></th>#}
+                        {% if bill_tobe_paid.is_paid %}
+                            <td>A conta já esta paga</td>
+                        {% else %}
+                            <th><a href="{% url 'pay-bills_tobe_paid' bill_tobe_paid.pk %}">Pagar</a></th>
+                        {% endif %}
+                    </tr>
+                    {% for bill_tobe_paid in bills_tobe_paid %}
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>TIPO DA CONTA</th>
+                        <th>NÚMERO DE PARCELAS</th>
+                        <th>VALOR DA PARCELA</th>
+                        <th>VENCIMENTO</th>
+                        <th>DOCUMENTO DE ENTRADA</th>
+                        <th>PAGAR</th>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -10,3 +10,6 @@ class EntryDocument(models.Model):
     emission_date = models.DateTimeField(db_column='emission_date')
     db_registration_date = models.DateTimeField(auto_now_add=True, db_column='db_registration_date')
     supplier = models.ForeignKey(Supplier, db_column='supplier_id', on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return f'{self.document_type}; número {self.document_number}'
