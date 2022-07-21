@@ -45,6 +45,13 @@ INSTALLED_APPS = [
     'product',
     'product_brand',
     'supplier',
+    'bills_tobe_paid',
+    'bills_tobe_received',
+    'grill_reserve',
+    'order',
+    'product_entry_document',
+    'product_entry_product',
+    'product_output',
 
     # 3rd part APPS
     'dal',

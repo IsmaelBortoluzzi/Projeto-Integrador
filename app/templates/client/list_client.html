@@ -14,6 +14,8 @@
                         <th>CPF</th>
                         <th>NÚMERO</th>
                         <th>ENDEREÇO</th>
+                        <th>EDITAR</th>
+                        <th>EXCLUIR</th>
                     </tr>
                 {% for client in clients %}
                     <tr>
@@ -36,7 +38,8 @@
                                 </a>
                             </td>
                         {% endif %}
-                        <td><a href="#">Editar</a></td>
+                        <td><a href="{% url 'edit-client' client.pk %}">Editar</a></td>
+                        <td><a href="{% url 'delete-client' client.pk %}">Excluir</a></td>
                     </tr>
                 {% endfor %}
                 </table>

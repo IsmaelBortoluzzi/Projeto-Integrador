@@ -50,17 +50,25 @@
                     <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item text-white" href="{% url 'list-client' %}">Listar</a>
                         <a class="dropdown-item text-white" href="{% url 'create-client' %}">Adicionar</a>
-                        <a class="dropdown-item text-white" href="#">Excluir</a>
                     </div>
                 </div>
+{#                <div class="dropdown">#}
+{#                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                        Endereços#}
+{#                    </button>#}
+{#                    <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">#}
+{#                        <a class="dropdown-item text-white" href="{% url 'list-address' %}">Listar</a>#}
+{#                        <a class="dropdown-item text-white" href="{% url 'create-address' %}">Adicionar</a>#}
+{#                        <a class="dropdown-item text-white" href="#">Excluir</a>#}
+{#                    </div>#}
+{#                </div>#}
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Endereços
+                        Produtos
                     </button>
                     <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item text-white" href="{% url 'list-address' %}">Listar</a>
-                        <a class="dropdown-item text-white" href="{% url 'create-address' %}">Adicionar</a>
-                        <a class="dropdown-item text-white" href="#">Excluir</a>
+                        <a class="dropdown-item text-white" href="{% url 'list-product' %}">Listar</a>
+                        <a class="dropdown-item text-white" href="{% url 'create-product' %}">Adicionar</a>
                     </div>
                 </div>
             </ul>

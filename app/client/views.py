@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import ListView
+from django.views.generic import ListView, DeleteView
 
 from .forms import ClientForm, AddressForm
 from .models import Client, Address
@@ -33,9 +33,34 @@ def create_client(request):
         return HttpResponseRedirect(reverse('home'))
 
 
-def edit_client(request):
-    # TODO Fazer o edit client
-    pass
+def edit_client(request, pk):
+
+    if request.method == 'GET':
+        context = {
+            'client_form': ClientForm(instance=Client.objects.get(pk=pk))
+        }
+        return render(request, 'client/edit_client.html', context)
+
+    if request.method == 'POST':
+        client_form = ClientForm(request.POST)
+
+        if client_form.is_valid():
+            updated_client = client_form.save(commit=False)
+            updated_client.id = pk
+            updated_client.save(force_update=True)
+
+        # TODO importar o messages pra dizer pro user pq o form veio inválido
+
+        return HttpResponseRedirect(reverse('home'))
+
+
+def delete_client(request, pk):
+    client = Client.objects.filter(pk=pk).first()
+
+    if client:
+        client.delete()
+
+    return HttpResponseRedirect(reverse('list-client'))
 
 
 class ListClient(ListView):
