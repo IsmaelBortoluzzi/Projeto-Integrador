@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row mt-lg-5">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped text-white">
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>QUANTIDADE</th>
+                        <th>CUSTO</th>
+                        <th>NÚMERO DO DOCUMENTO</th>
+                        <th>PRODUTO</th>
+                    </tr>
+                    {% for entry_product in entry_products %}
+                        <tr>
+                            <td>{{ entry_product.pk }}</td>
+                            <td>{{ entry_product.quantity }}</td>
+                            <td>{{ entry_product.cost }}</td>
+                            <td>{{ entry_product.entry_document }}</td>
+                            <td>{{ entry_product.product }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -17,3 +17,13 @@
 
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.dropdown-submenu a.test').on("click", function (e) {
+            $(this).next('ul').toggle();
+            e.stopPropagation();
+            e.preventDefault();
+        });
+    });
+</script>

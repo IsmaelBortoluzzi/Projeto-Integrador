@@ -10,6 +10,9 @@ class Supplier(models.Model):
     email = models.EmailField(db_column='email', default='')
     phone_number = models.CharField(max_length=32, default='', db_column='phone_number')
 
+    def __str__(self):
+        return f'{self.fantasy_name}'
+
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if not self.id:
             self.created = datetime.datetime.now()

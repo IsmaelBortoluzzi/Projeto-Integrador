@@ -19,3 +19,18 @@ body {
 footer {
     margin-top: auto;
 }
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
+
+.no-text-decoration:hover {
+    text-decoration: none;
+    background-color: #6d4a76;
+}

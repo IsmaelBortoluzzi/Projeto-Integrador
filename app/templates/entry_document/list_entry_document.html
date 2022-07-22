@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row mt-lg-5">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped text-white">
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>NÚMERO DO DOCUMENTO</th>
+                        <th>TIPO DO DOCUMENTO</th>
+                        <th>VALOR TOTAL</th>
+                        <th>EMISSÃO</th>
+                        <th>REGISTRADO NO SISTEMA</th>
+                        <th>FORNECEDOR</th>
+                    </tr>
+                    {% for entry_document in entry_documents %}
+                        <tr>
+                            <td>{{ entry_document.pk }}</td>
+                            <td>{{ entry_document.document_number }}</td>
+                            <td>{{ entry_document.document_type }}</td>
+                            <td>{{ entry_document.total_value }}</td>
+                            <td>{{ entry_document.emission_date }}</td>
+                            <td>{{ entry_document.db_registration_date }}</td>
+                            <td>{{ entry_document.supplier }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

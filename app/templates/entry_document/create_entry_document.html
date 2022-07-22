@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <form id="address-form" method="post" class="form-horizontal" role="form">
+                {% csrf_token %}
+                <div class="form-group">
+                <h3 class="mt-5">Documento De Entrada</h3>
+                {% for field in entry_document_form %}
+                    <div class="clearfix visible-sm visible-xs"><br></div>
+
+                    {% if field.label == 'Quantidade' %}
+                        <h3 class="mt-3 mb-5">Produto De Entrada</h3>
+                    {% endif %}
+
+                    <label for="{{ field.auto_id }}" class="col-md-1 col-sm-2 col-xs-2">{{ field.label }}</label>
+                    <div class="col-md-5 col-sm-10 col-xs-10">
+                        {{ field }}
+                        {% if field.errors %}
+                            <br>
+                            {{ field.errors }}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                {#                    <br>#}
+{#                    <hr style="height:0.5px;background-color:white;">#}
+{##}
+{#                    <div id="clone_product">#}
+{#                        <h3 class="mt-3">Produto De Entrada</h3>#}
+{#                        {% for field in entry_product_form %}#}
+{#                            <div class="clearfix visible-sm visible-xs"><br></div>#}
+{#                            <label for="{{ field.auto_id }}" class="col-md-1 col-sm-2 col-xs-2">{{ field.label }}</label>#}
+{#                            <div class="col-md-5 col-sm-10 col-xs-10">#}
+{#                                {{ field }}#}
+{#                                {% if field.errors %}#}
+{#                                    <br>#}
+{#                                    {{ field.errors }}#}
+{#                                {% endif %}#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+
+                </div>
+                <button class="btn btn-secondary ml-3 mt-2">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{#{% block extrajs %}#}
+{#    <script>#}
+{#        $(document).ready(function () {#}
+{#            $('#add').on('click', function (e) {#}
+{##}
+{#                e.preventDefault();#}
+{#                let extra_product = $('#clone_product').clone();#}
+{##}
+{#                extra_product.find(':input').each(function () {#}
+{#                    console.log(this);#}
+{##}
+{#                    switch(this.type) {#}
+{#                        case 'password':#}
+{#                        case 'text':#}
+{#                        case 'textarea':#}
+{#                        case 'file':#}
+{#                        case 'select-one':#}
+{#                        case 'select-multiple':#}
+{#                        case 'date':#}
+{#                        case 'number':#}
+{#                        case 'tel':#}
+{#                        case 'email':#}
+{#                            this.id = "";#}
+{#                            $(this).val('');#}
+{#                            break;#}
+{#                        case 'checkbox':#}
+{#                        case 'radio':#}
+{#                            this.id = "";#}
+{#                            this.checked = false;#}
+{#                            break;#}
+{#                    }#}
+{#                });#}
+{##}
+{#                $('.form-control').append(extra_product)#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+{#{% endblock %}#}

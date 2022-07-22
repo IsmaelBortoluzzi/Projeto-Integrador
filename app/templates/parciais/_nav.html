@@ -14,16 +14,29 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="">Estoque</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="">Financeiro</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Comandas</a>
                 </li>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Documentos de Entrada
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu bg-primary">
+                        <li><a class="dropdown-item text-white" tabindex="-1" href="{% url 'create-entry-document' %}">Adicionar</a></li>
+                        <li><a class="dropdown-item text-white" tabindex="-1" href="{% url 'list-entry-document' %}">Listar</a></li>
+                        <li class="dropdown-submenu bg-primary">
+                            <a class="test no-text-decoration text-white" tabindex="-1" href="#">Produtos de Entrada<span class="caret"></span></a>
+                            <ul class="dropdown-menu text-white bg-primary">
+                                <li><a class="dropdown-item text-white" href="{% url 'create-entry-product' %}">Adicionar</a></li>
+                                <li><a class="dropdown-item text-white" href="{% url 'list-entry-product' %}">Listar</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Contas A Pagar
                     </button>
                     <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
@@ -32,7 +45,8 @@
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Fornecedores
                     </button>
                     <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
@@ -41,7 +55,8 @@
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Marcas
                     </button>
                     <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
@@ -50,7 +65,8 @@
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Clientes
                     </button>
                     <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
@@ -58,18 +74,19 @@
                         <a class="dropdown-item text-white" href="{% url 'list-client' %}">Listar</a>
                     </div>
                 </div>
-{#                <div class="dropdown">#}
-{#                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
-{#                        Endereços#}
-{#                    </button>#}
-{#                    <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">#}
-{#                        <a class="dropdown-item text-white" href="{% url 'list-address' %}">Listar</a>#}
-{#                        <a class="dropdown-item text-white" href="{% url 'create-address' %}">Adicionar</a>#}
-{#                        <a class="dropdown-item text-white" href="#">Excluir</a>#}
-{#                    </div>#}
-{#                </div>#}
+                {#                <div class="dropdown">#}
+                {#                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+                {#                        Endereços#}
+                {#                    </button>#}
+                {#                    <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">#}
+                {#                        <a class="dropdown-item text-white" href="{% url 'list-address' %}">Listar</a>#}
+                {#                        <a class="dropdown-item text-white" href="{% url 'create-address' %}">Adicionar</a>#}
+                {#                        <a class="dropdown-item text-white" href="#">Excluir</a>#}
+                {#                    </div>#}
+                {#                </div>#}
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Produtos
                     </button>
                     <div class="dropdown-menu bg-primary" aria-labelledby="dropdownMenuButton">
@@ -78,10 +95,13 @@
                     </div>
                 </div>
             </ul>
-            <form class="form-inline my-2 my-lg-0 ml-lg-4" action="/busca/">
-                <input name="termo" value="{{ request.GET.termo }}" class="form-control mr-sm-2" type="search" placeholder="Pesquisar"
-                       aria-label="Search">
-            </form>
+{#            <form class="form-inline my-2 my-lg-0 ml-lg-4" action="/busca/">#}
+{#                <input name="termo" value="{{ request.GET.termo }}" class="form-control mr-sm-2" type="search"#}
+{#                       placeholder="Pesquisar"#}
+{#                       aria-label="Search">#}
+{#            </form>#}
         </div>
     </div>
 </nav>
+
+
