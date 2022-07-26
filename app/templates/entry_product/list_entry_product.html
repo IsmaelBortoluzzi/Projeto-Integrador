@@ -12,6 +12,7 @@
                         <th>CUSTO</th>
                         <th>NÚMERO DO DOCUMENTO</th>
                         <th>PRODUTO</th>
+                        <th>EXCLUIR</th>
                     </tr>
                     {% for entry_product in entry_products %}
                         <tr>
@@ -20,6 +21,7 @@
                             <td>{{ entry_product.cost }}</td>
                             <td>{{ entry_product.entry_document }}</td>
                             <td>{{ entry_product.product }}</td>
+                            <td><a href="{% url 'delete-entry-product' entry_product.pk %}">Excluir</a></td>
                         </tr>
                     {% endfor %}
                 </table>

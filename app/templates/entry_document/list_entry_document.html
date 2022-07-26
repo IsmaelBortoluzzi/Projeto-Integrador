@@ -14,6 +14,7 @@
                         <th>EMISSÃO</th>
                         <th>REGISTRADO NO SISTEMA</th>
                         <th>FORNECEDOR</th>
+                        <th>PRODUTOS</th>
                     </tr>
                     {% for entry_document in entry_documents %}
                         <tr>
@@ -24,6 +25,7 @@
                             <td>{{ entry_document.emission_date }}</td>
                             <td>{{ entry_document.db_registration_date }}</td>
                             <td>{{ entry_document.supplier }}</td>
+                            <td><a href="#" onclick="listEntryProducts({{ entry_document.pk }})">Produtos</a></td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -33,3 +35,15 @@
 
 {% endblock %}
 
+{% block extrajs %}
+    <script>
+
+        var listEntryProducts = document => {
+            window.location.href = window.location.origin +
+                "{% url 'list-entry-product' %}" +
+                "?document=" +
+                document;
+        }
+
+    </script>
+{% endblock %}

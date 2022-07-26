@@ -5,6 +5,7 @@ from django.views.generic import ListView
 
 from .forms import EntryDocumentForm, InlineDocumentProductForm
 from .models import EntryDocument
+from .utils import create_entry_document_with_one_product
 
 
 def create_entry_document(request):
@@ -18,7 +19,7 @@ def create_entry_document(request):
         entry_document_form = InlineDocumentProductForm(request.POST)
 
         if entry_document_form.is_valid():
-            new_entry_document = entry_document_form.save()
+            new_entry_document = create_entry_document_with_one_product(entry_document_form, commit=True)
 
         # TODO importar o messages pra dizer pro user pq o form veio inválido
 

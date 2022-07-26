@@ -34,11 +34,11 @@ class ListEntryProduct(ListView):
 
     def __init__(self, *args, **kwargs):
         super(ListEntryProduct, self).__init__(*args, **kwargs)
-        self.codigo = self.document_id = None
+        self.codigo = self.document = None
 
     def get(self, request, *args, **kwargs):
         self.codigo = self.request.GET.get('codigo', None)
-        self.document_id = self.request.GET.get('document_id', None)
+        self.document = self.request.GET.get('document', None)
 
         return super().get(request, *args, **kwargs)
 
@@ -47,8 +47,8 @@ class ListEntryProduct(ListView):
 
         if self.codigo:
             query = query.filter(id=self.codigo)
-        if self.document_id:
-            query = query.filter(document_id__id=self.document_id)
+        if self.document:
+            query = query.filter(entry_document__id=self.document)
 
         return query
 
@@ -59,5 +59,5 @@ def delete_entry_product(request, pk):
     if entry_product:
         entry_product.delete()
 
-    return HttpResponseRedirect(reverse('list-entry_product'))
+    return HttpResponseRedirect(reverse('list-entry-product'))
 

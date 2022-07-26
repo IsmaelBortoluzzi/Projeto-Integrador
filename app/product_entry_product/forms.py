@@ -39,8 +39,3 @@ class EntryProductForm(forms.Form):
         for key, value in self.fields.items():  # pra cada campo, adiciona a classe bootstrap form-control
             value.widget.attrs.update({'class': 'form-control'})
 
-    def clean(self):
-        if not self.cleaned_data.get('cnpj').isdigit():
-            raise forms.ValidationError('CNPJ deve conter somente dígitos!')
-
-        return self.cleaned_data
