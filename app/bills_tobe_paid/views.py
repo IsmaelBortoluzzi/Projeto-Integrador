@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -20,7 +21,7 @@ def create_bills_tobe_paid(request):
         if bills_tobe_paid_form.is_valid():
             new_bills_tobe_paid = bills_tobe_paid_form.save()
 
-        # TODO importar o messages pra dizer pro user pq o form veio inválido
+            messages.success(request, 'Salvo Com Sucesso!')
 
         return HttpResponseRedirect(reverse('home'))
 
@@ -59,5 +60,7 @@ def pay_bills_tobe_paid(request, pk):
         bill = BillsToBePaid.objects.get(pk=pk)
         bill.is_paid = True
         bill.save()
+
+        messages.success(request, 'Paga Com Sucesso!')
 
     return HttpResponseRedirect(reverse('list-bills-tobe-paid'))

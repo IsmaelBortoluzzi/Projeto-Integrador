@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -28,7 +29,7 @@ def create_client(request):
         if client_form.is_valid():
             new_client = create_client_from_clientform(client_form, commit=True)
 
-        # TODO importar o messages pra dizer pro user pq o form veio inválido
+            messages.success(request, 'Salvo Com Sucesso!')
 
         return HttpResponseRedirect(reverse('home'))
 
@@ -57,7 +58,7 @@ def edit_client(request, pk):
             updated_client.id = pk
             updated_client.save(force_update=True)
 
-        # TODO importar o messages pra dizer pro user pq o form veio inválido
+            messages.success(request, 'Editado Com Sucesso!')
 
         return HttpResponseRedirect(reverse('home'))
 
@@ -67,6 +68,8 @@ def delete_client(request, pk):
 
     if client:
         client.delete()
+
+        messages.success(request, 'Deletado Com Sucesso!')
 
     return HttpResponseRedirect(reverse('list-client'))
 
@@ -120,7 +123,7 @@ def create_address(request):
             client_id = request.GET.get('fk', None)
             new_address = create_address_from_addressform(address_form, client_id=client_id, commit=True)
 
-        # TODO importar o messages pra dizer pro user pq o form veio inválido
+            messages.success(request, 'Salvo Com Sucesso!')
 
         return HttpResponseRedirect(reverse('home'))
 

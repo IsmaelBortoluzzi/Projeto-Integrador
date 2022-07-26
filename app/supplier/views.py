@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -22,7 +23,7 @@ def create_supplier(request):
         if supplier_form.is_valid():
             new_supplier = create_supplier_from_supplierform(supplier_form, commit=True)
 
-        # TODO importar o messages pra dizer pro user pq o form veio inválido
+            messages.success(request, 'Salvo Com Sucesso!')
 
         return HttpResponseRedirect(reverse('home'))
 

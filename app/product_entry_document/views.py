@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -21,7 +22,7 @@ def create_entry_document(request):
         if entry_document_form.is_valid():
             new_entry_document = create_entry_document_with_one_product(entry_document_form, commit=True)
 
-        # TODO importar o messages pra dizer pro user pq o form veio inválido
+            messages.success(request, 'Salvo Com Sucesso!')
 
         return HttpResponseRedirect(reverse('home'))
 

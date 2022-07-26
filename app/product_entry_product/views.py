@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView
+from django.contrib import messages
 
 from product_entry_product.forms import EntryProductModelForm
 from product_entry_product.models import EntryProduct
@@ -20,9 +21,11 @@ def create_entry_product(request):
         if entry_product_form.is_valid():
             new_entry_product = entry_product_form.save()
 
-        # TODO importar o messages pra dizer pro user pq o form veio inválido
+            messages.success(request, 'Salvo Com Sucesso!')
 
-        return HttpResponseRedirect(reverse('home'))
+
+
+        return HttpResponseRedirect(reverse('create-entry-product'))
 
 
 class ListEntryProduct(ListView):
@@ -58,6 +61,8 @@ def delete_entry_product(request, pk):
 
     if entry_product:
         entry_product.delete()
+
+        messages.success(request, 'Deletado Com Sucesso!')
 
     return HttpResponseRedirect(reverse('list-entry-product'))
 
