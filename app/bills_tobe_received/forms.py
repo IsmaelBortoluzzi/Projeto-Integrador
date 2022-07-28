@@ -1,12 +1,12 @@
 from django import forms
 
-from bills_tobe_paid.models import BillsToBePaid
+from bills_tobe_received.models import BillsToBeReceived
 from product.models import Product
 from googletrans import Translator
 from utils_global.translated_labels import product_form_labels
 
 
-class BillsToBePaidForm(forms.ModelForm):
+class BillsToBeReceivedForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,5 +26,5 @@ class BillsToBePaidForm(forms.ModelForm):
             value.label = next(string_to_translate)
 
     class Meta:
-        model = BillsToBePaid
+        model = BillsToBeReceived
         fields = '__all__'

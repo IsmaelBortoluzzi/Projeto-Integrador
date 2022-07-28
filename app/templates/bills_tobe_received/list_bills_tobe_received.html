@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row mt-lg-5">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped text-white">
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>DATA DE INCLUSÃO</th>
+                        <th>VALOR RESTANTE</th>
+                        <th>ORDEM</th>
+                        <th>RECEBER</th>
+                    </tr>
+                    {% for bill_tobe_received in bills_tobe_received %}
+                        <tr>
+                            <td>{{ bill_tobe_received.pk }}</td>
+                            <td>{{ bill_tobe_received.inclusion_date }}</td>
+                            <td>{{ bill_tobe_received.remaining_value }}</td>
+                            <td>EM DESENVOLVIMENTO</td>
+                            {# <th><a href="{% url 'detail-entry-document' bill_tobe_received.entry_document %}">Documento de Entrada</a></th>#}
+                            {% if bill_tobe_received.remaining_value == 0 %}
+                                <td>A conta já esta paga</td>
+                            {% else %}
+                                <th><a href="{% url 'receive-bills-tobe-received' bill_tobe_received.pk %}">Receber</a></th>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
