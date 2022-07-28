@@ -3,13 +3,13 @@ version: '3.4'
 services:
   postgres:
     container_name: db_projeto_integrador
-    image: postgres:latest
+    image: postgres:${POSTGRES_VERSION}
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=bar
+      - POSTGRES_USER$={POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     ports:
-      - "127.0.0.1:7438:5432"
+      - ${DB_PORT}
     restart: always
     volumes:
       - database_data:/var/lib/postgresql/data/
