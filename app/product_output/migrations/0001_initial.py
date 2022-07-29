@@ -18,9 +18,9 @@ class Migration(migrations.Migration):
             name='ProductOutput',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.IntegerField(db_column='minimum_inventory', default=0)),
+                ('quantity', models.IntegerField(db_column='quantity', default=0)),
                 ('product_id', models.ForeignKey(db_column='product_id', on_delete=django.db.models.deletion.DO_NOTHING, to='product.product')),
-                ('product_output_id', models.ForeignKey(db_column='product_output_id', on_delete=django.db.models.deletion.DO_NOTHING, to='order.order')),
+                ('order', models.ForeignKey(db_column='order_id', on_delete=django.db.models.deletion.DO_NOTHING, to='order.order')),
             ],
         ),
     ]

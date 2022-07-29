@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row mt-lg-5">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped text-white">
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>QUANTIDADE</th>
+                        <th>NÚMERO DA ORDEM</th>
+                        <th>PRODUTO</th>
+                    </tr>
+                    {% for product_output in product_outputs %}
+                        <tr>
+                            <td>{{ product_output.pk }}</td>
+                            <td>{{ product_output.quantity }}</td>
+                            <td>{{ product_output.order }}</td>
+                            <td>{{ product_output.product_id }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

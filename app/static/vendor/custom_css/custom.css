@@ -34,3 +34,12 @@ footer {
     text-decoration: none;
     background-color: #6d4a76;
 }
+
+.align-drop-down-itens {
+    padding: 0.25rem 1.5rem;
+}
+
+
+.no-margin-left {
+    margin-left: 0 !important;
+}

@@ -29,5 +29,7 @@ urlpatterns = [
     path('entry-document/', include('product_entry_document.urls')),
     path('entry-product/', include('product_entry_product.urls')),
     path('bills-tobe-received/', include('bills_tobe_received.urls')),
+    path('order/', include('order.urls')),
+    path('product-output/', include('product_output.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

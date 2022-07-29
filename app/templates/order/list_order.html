@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row mt-lg-5">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped text-white">
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>DATA DE CRIAÇÃO</th>
+                        <th>FORMA DE PAGAMENTO</th>
+                        <th>ATIVA?</th>
+                        <th>CLIENTE</th>
+                        <th>PRODUTOS DA ORDEM</th>
+                        <th>TOTAL</th>
+                    </tr>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.pk }}</td>
+                            <td>{{ order.selling_date }}</td>
+                            <td>{{ order.payment_form }}</td>
+                            <td>{{ order.is_active }}</td>
+                            <td>{{ order.client_id }}</td>
+                            <td><a href="#" onclick="listProductsOutput({{ order.pk }})">Produtos</a></td>
+                            <td>{{ order.total }}</td>
+                            <th></th>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extrajs %}
+    <script>
+
+        var listProductsOutput = order => {
+            window.location.href = window.location.origin +
+                "{% url 'list-product-output' %}" +
+                "?order=" +
+                order;
+        }
+
+    </script>
+{% endblock %}
