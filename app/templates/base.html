@@ -53,6 +53,16 @@
 
 {% include 'parciais/_footer.html' %}
 
+<script>
+    $(document).ready(function () {
+        $('.dropdown-submenu a.sub-dropdown').on("click", function (e) {
+            $(this).next('ul').toggle();
+            e.stopPropagation();
+            e.preventDefault();
+        });
+    });
+</script>
+
 {% block extrajs %}
 {% endblock %}
 
