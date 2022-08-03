@@ -16,6 +16,9 @@ class Product(models.Model):
     current_inventory = models.IntegerField(db_column='current_inventory', default=0)
     minimum_inventory = models.IntegerField(db_column='minimum_inventory', default=0)
 
+    def __str__(self):
+        return f'{self.id}: {self.name}'
+
     class Meta:
         indexes = [
             models.Index(fields=['is_active'])

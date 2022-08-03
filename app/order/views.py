@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import ListView
 
-from order.forms import InlineOrderProductForm
+from order.forms import InlineOrderProductForm, OrderForm
 from order.models import Order
 from order.utils import create_order_with_one_product
 from product.models import Product
@@ -39,39 +39,50 @@ class ListOrder(ListView):
 
     def __init__(self, *args, **kwargs):
         super(ListOrder, self).__init__(*args, **kwargs)
-        self.codigo = self.document_type = None
+        self.codigo =  None
 
     def get(self, request, *args, **kwargs):
         self.codigo = self.request.GET.get('codigo', None)
-        self.document_type = self.request.GET.get('document_type', None)
 
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        query = Order.objects.all()
+        query = """
+            select oo.*, sum(T.total) as total from order_order oo
+            join (
+                select pop.order_id, (pop.quantity * pp.selling_price) as total 
+                from product_output_productoutput pop
+                join product_product pp
+                on pop.product_id = pp.id
+            ) T
+            on T.order_id = oo.id
         """
-        select sum(T.total) from order_order oo
-        join (
-            select pop.order_id, pop.quantity, pp.selling_price,
-                   (pop.quantity * pp.selling_price) as total from product_output_productoutput pop
-        
-            join product_product pp
-            on pop.product_id = pp.id
-        ) T
-        on T.order_id = oo.id
-        where oo.id = 4;
-        """
-
-        oi = list(query)
 
         if self.codigo:
-            query = query.filter(id=self.codigo)
-        if self.document_type:
-            query = query.filter(id=self.document_type)
+            query = query + " where oo.id = %s" % str(self.codigo)
+
+        query = Order.objects.raw(query + " group by oo.id;")
 
         return query
 
 
+def edit_order(request):
+    if request.method == 'GET':
+        pk = int(request.GET.get('order'))
+        context = {
+            'order_form': OrderForm(instance=Order.objects.get(pk=pk))
+        }
+        return render(request, 'order/edit_order.html', context)
 
+    if request.method == 'POST':
+        order_form = OrderForm(request.POST)
 
+        if order_form.is_valid():
+            updated_order = order_form.save(commit=False)
+            updated_order.id = int(request.GET.get('order'))
+            updated_order.save(force_update=True)
+
+        messages.success(request, 'Editado Com Sucesso!')
+
+        return HttpResponseRedirect(reverse('list-order'))
 

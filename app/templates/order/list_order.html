@@ -14,6 +14,7 @@
                         <th>CLIENTE</th>
                         <th>PRODUTOS DA ORDEM</th>
                         <th>TOTAL</th>
+                        <th>EDITAR</th>
                     </tr>
                     {% for order in orders %}
                         <tr>
@@ -24,7 +25,7 @@
                             <td>{{ order.client_id }}</td>
                             <td><a href="#" onclick="listProductsOutput({{ order.pk }})">Produtos</a></td>
                             <td>{{ order.total }}</td>
-                            <th></th>
+                            <td><a href="#" onclick="deactivateOrder({{ order.pk }})">editar</a></td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -40,6 +41,13 @@
         var listProductsOutput = order => {
             window.location.href = window.location.origin +
                 "{% url 'list-product-output' %}" +
+                "?order=" +
+                order;
+        }
+
+        var deactivateOrder = order => {
+             window.location.href = window.location.origin +
+                "{% url 'edit-order' %}" +
                 "?order=" +
                 order;
         }

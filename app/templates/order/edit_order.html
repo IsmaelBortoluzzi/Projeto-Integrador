@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <form id="address-form" method="post" class="form-horizontal" role="form">
+                {% csrf_token %}
+                <div class="form-group">
+                <h3 class="mt-5">Ordem</h3>
+                {% for field in order_form %}
+                    <div class="clearfix visible-sm visible-xs"><br></div>
+
+                    {% if field.label == 'Formulário de pagamento' %}
+                        <label for="{{ field.auto_id }}" class="col-md-3 col-sm-2 col-xs-2">Forma de pagamento</label>
+                    {% else %}
+                        <label for="{{ field.auto_id }}" class="col-md-3 col-sm-2 col-xs-2">{{ field.label }}</label>
+                    {% endif %}
+
+                    <div class="col-md-6 col-sm-10 col-xs-10">
+                        {{ field }}
+                        {% if field.errors %}
+                            <br>
+                            {{ field.errors }}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                </div>
+                <button class="btn btn-secondary ml-3 mt-2">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

@@ -14,6 +14,9 @@ class Client(models.Model):
         address = Address.objects.filter(client=self)
         return address
 
+    def __str__(self):
+        return f'{self.id}: {self.nickname if self.nickname else self.full_name}'
+
 
 class Address(models.Model):
     cep = models.CharField(max_length=8, db_column='cep', default='')
