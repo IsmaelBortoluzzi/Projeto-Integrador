@@ -19,8 +19,16 @@ def create_product_output(request):
         product_output_form = ProductOutputModelForm(request.POST)
 
         if product_output_form.is_valid():
-            new_product_output = product_output_form.save()
+            new_product_output = product_output_form.save(commit=False)
 
+            if new_product_output.quantity > new_product_output.product_id.current_inventory - new_product_output.product_id.minimum_inventory:
+                messages.error(request, 'Não tem estoque o suficiente!')
+                return HttpResponseRedirect(reverse('create-product-output'))
+
+            if new_product_output.product_id.current_inventory - new_product_output.quantity < (new_product_output.product_id.current_inventory - new_product_output.product_id.minimum_inventory) * 0.1:
+                messages.warning(request, 'Cuidado! O estaque deste produto está baixo!')
+
+            new_product_output.save()
             messages.success(request, 'Salvo Com Sucesso!')
 
         return HttpResponseRedirect(reverse('create-product-output'))
