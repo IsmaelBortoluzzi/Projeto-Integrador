@@ -31,5 +31,6 @@ urlpatterns = [
     path('bills-tobe-received/', include('bills_tobe_received.urls')),
     path('order/', include('order.urls')),
     path('product-output/', include('product_output.urls')),
+    path('grill-reserve/', include('grill_reserve.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

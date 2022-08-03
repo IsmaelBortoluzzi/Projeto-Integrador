@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row mt-lg-5">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped text-white">
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>DATA DE INÍCIO</th>
+                        <th>DATA DE FIM</th>
+                        <th>OBSERVAÇÃO</th>
+                        <th>CLIENTE</th>
+                    </tr>
+                {% for grill_reserve in grill_reserves %}
+                    <tr>
+                        <td>{{ grill_reserve.pk }}</td>
+                        <td>{{ grill_reserve.start_hour }}</td>
+                        <td>{{ grill_reserve.finish_hour }}</td>
+                        <td>{{ grill_reserve.observation }}</td>
+                        <td>{{ grill_reserve.client_id }}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
