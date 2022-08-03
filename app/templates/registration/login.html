@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Entrar{% endblock %}
+
+{% block content_login_out %}
+
+    <div class="container-center">
+        <div class="box text-center">
+            <h3 style="color: #000000">Usuário e Senha</h3>
+            <form action="?next={% url 'home' %}" method="post" class="form-signin" role="form">
+                <br><br><br>
+                {% csrf_token %}
+                {% for field in form %}
+                    {{ field }}
+                    <br><br>
+                {% if field.errors %}
+                    <span class="help-block text-danger">{{ field.errors|join:", " }}</span>
+                {% endif %}
+                {% endfor %}
+                <input type="hidden" name="next" value="{{ next }}">
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.non_field_errors|join:', ' }}
+                    </div>
+                {% endif %}
+                <br><br>
+                <button type="submit" onclick="this.disabled=true; this.form.submit();"
+                        class="btn btn-lg btn-primary btn-block submit">
+                    Entrar
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

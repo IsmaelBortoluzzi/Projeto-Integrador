@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content_login_out %}
+    <div class="container-center">
+        <div class="box text-center">
+            <h1  style="color: #000000">VOCÊ DESLOGOU</h1>
+            <br><br><br>
+            <a href="{% url 'login'%}" style="color: #000000">Clique aqui para logar de novo.</a>
+        </div>
+    </div>
+{% endblock %}
