@@ -18,8 +18,7 @@
                             <td>{{ bill_tobe_received.pk }}</td>
                             <td>{{ bill_tobe_received.inclusion_date }}</td>
                             <td>{{ bill_tobe_received.remaining_value }}</td>
-                            <td>EM DESENVOLVIMENTO</td>
-                            {# <th><a href="{% url 'detail-entry-document' bill_tobe_received.entry_document %}">Documento de Entrada</a></th>#}
+                            <td><a href="#" onclick="getOrder({{ bill_tobe_received.order_id.id }})">Ordem</a></td>
                             {% if bill_tobe_received.remaining_value == 0 %}
                                 <td>A conta já esta paga</td>
                             {% else %}
@@ -34,3 +33,13 @@
 
 {% endblock %}
 
+{% block extrajs %}
+<script>
+        var getOrder = fk => {
+            window.location.href = window.location.origin +
+                "{% url 'list-order' %}" +
+                "?codigo=" +
+                fk;
+        }
+</script>
+{% endblock %}

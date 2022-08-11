@@ -26,6 +26,8 @@ def create_order(request):
             new_order = create_order_with_one_product(order_form, commit=True)
 
             messages.success(request, 'Salvo Com Sucesso!')
+        else:
+            messages.error(request, 'Não foi possível salvar sua comanda!')
 
         return HttpResponseRedirect(reverse('home'))
 
@@ -58,7 +60,7 @@ class ListOrder(ListView):
             on T.order_id = oo.id
         """
 
-        if self.codigo:
+        if self.codigo is not None:
             query = query + " where oo.id = %s" % str(self.codigo)
 
         query = Order.objects.raw(query + " group by oo.id;")

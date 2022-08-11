@@ -44,7 +44,7 @@ class ListBillsToBeReceived(ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        query = BillsToBeReceived.objects.all()
+        query = BillsToBeReceived.objects.all().select_related('order_id')
 
         if self.codigo:
             query = query.filter(id=self.codigo)
