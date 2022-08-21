@@ -1,34 +1,20 @@
 from django import forms
-from googletrans import Translator
 
-from order.models import Order
 from product.models import Product
 from .models import ProductOutput
-
+from utils_global.translated_labels import product_output_labels
 
 class ProductOutputModelForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        translator = Translator()
-        labels = list()
-
-        for key, value in self.fields.items():  # pra cada campo, adiciona a classe bootstrap form-control
-            value.widget.attrs.update({'class': 'form-control'})
-            labels.append(value.label)
-
-        string_to_translate = ' | '.join(labels)
-        string_to_translate = translator.translate(string_to_translate, src='en', dest='pt').text
-        string_to_translate = iter(string_to_translate.split(' |'))
-
         for key, value in self.fields.items():
-            value.label = next(string_to_translate)
+            value.widget.attrs.update({'class': 'form-control'})
+            value.label = product_output_labels.get(value.label)
 
     class Meta:
         model = ProductOutput
-        fields = '__all__'
-
+        fields = ['order', 'product_id', 'quantity']
 
 class ProductOutputForm(forms.Form):
     quantity = forms.IntegerField(required=True, label='Quantidade', min_value=1, max_value=2000000000)
@@ -36,6 +22,6 @@ class ProductOutputForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for key, value in self.fields.items():  # pra cada campo, adiciona a classe bootstrap form-control
+        for key, value in self.fields.items():
             value.widget.attrs.update({'class': 'form-control'})
 

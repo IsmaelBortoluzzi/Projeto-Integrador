@@ -2,9 +2,7 @@ from django import forms
 
 from product_entry_product.forms import EntryProductForm
 from .models import EntryDocument
-from product.models import Product
 from googletrans import Translator
-from utils_global.translated_labels import product_form_labels
 
 
 class EntryDocumentForm(forms.ModelForm):

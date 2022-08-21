@@ -50,20 +50,14 @@ class ListOrder(ListView):
 
     def get_queryset(self):
         query = """
-            select oo.*, sum(T.total) as total from order_order oo
-            join (
-                select pop.order_id, (pop.quantity * pp.selling_price) as total 
-                from product_output_productoutput pop
-                join product_product pp
-                on pop.product_id = pp.id
-            ) T
-            on T.order_id = oo.id
+            select oo.*, COALESCE((select sum(pop.quantity * pp.selling_price) from product_product pp where pop.product_id = pp.id), 0.00) as total
+            from order_order oo left join product_output_productoutput pop on pop.order_id = oo.id
         """
 
         if self.codigo is not None:
             query = query + " where oo.id = %s" % str(self.codigo)
 
-        query = Order.objects.raw(query + " group by oo.id;")
+        query = Order.objects.raw(query)
 
         return query
 

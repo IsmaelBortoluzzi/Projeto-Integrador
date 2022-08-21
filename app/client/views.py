@@ -2,18 +2,12 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import ListView, DeleteView
+from django.views.generic import ListView
 
 from .forms import ClientForm, AddressForm
 from .models import Client, Address
-from .utils import (
-    create_client_from_clientform,
-    create_address_from_addressform,
-)
+from .utils import *
 from utils_global.raw_query_utils import first
-
-
-#  CLIENT VIEWS
 
 def create_client(request):
 
@@ -31,7 +25,7 @@ def create_client(request):
 
             messages.success(request, 'Salvo Com Sucesso!')
 
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('list-client'))
 
 
 def edit_client(request, pk):
@@ -60,7 +54,7 @@ def edit_client(request, pk):
 
             messages.success(request, 'Editado Com Sucesso!')
 
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('list-client'))
 
 
 def delete_client(request, pk):
@@ -94,7 +88,7 @@ class ListClient(ListView):
     def get_queryset(self):
         query = """
             SELECT C.*, A.id AS address_id FROM client_client C
-            LEFT JOIN client_address A ON C.id = A.id
+            LEFT JOIN client_address A ON C.id = A.client_id
         """
 
         if self.codigo is not None:
@@ -161,9 +155,7 @@ def detail_address(request, pk):  # pk: address primary key
         context = dict()
 
         query = """SELECT A.* FROM client_address A WHERE A.id = %s""" % str(pk)
-        address = Address.objects.raw(query)
-
-        context['address'] = first(address)  # pega o primero address
+        context['address'] = first(Address.objects.raw(query))
 
         return render(request, 'client/address/detail_address.html', context)
 

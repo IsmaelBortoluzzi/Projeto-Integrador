@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row mt-lg-5">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped text-white">
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>CEP</th>
+                        <th>RUA</th>
+                        <th>NÚMERO</th>
+                        <th>BAIRRO</th>
+                        <th>CIDADE</th>
+                        <th>ESTADO</th>
+                    </tr>
+                    <tr>
+                        {% if address is not None %}
+                            <td>{{ address.pk }}</td>
+                            <td>{{ address.cep }}</td>
+                            <td>{{ address.street }}</td>
+                            <td>{{ address.number }}</td>
+                            <td>{{ address.district }}</td>
+                            <td>{{ address.city }}</td>
+                            <td>{{ address.state }}</td>
+                        {% endif %}
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

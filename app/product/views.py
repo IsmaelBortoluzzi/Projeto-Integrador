@@ -2,13 +2,10 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import ListView, UpdateView
+from django.views.generic import ListView
 
-from .forms import ProductForm
+from .forms import ProductForm, ProductEditForm
 from .models import Product
-
-from utils_global.raw_query_utils import first
-
 
 #  CLIENT VIEWS
 
@@ -25,31 +22,36 @@ def create_product(request):
 
         if product_form.is_valid():
             new_product = product_form.save()
-
             messages.success(request, 'Salvo Com Sucesso!')
 
-        return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('list-product'))
+
+        else:
+            return render(request, 'product/edit_product.html', product_form)
 
 
 def edit_product(request, pk):
 
     if request.method == 'GET':
         context = {
-            'product_form': ProductForm(instance=Product.objects.get(pk=pk))
+            'product_form': ProductEditForm(instance=Product.objects.get(pk=pk))
         }
         return render(request, 'product/edit_product.html', context)
 
     if request.method == 'POST':
-        product_form = ProductForm(request.POST)
+        product_form = ProductEditForm(request.POST)
 
         if product_form.is_valid():
             updated_product = product_form.save(commit=False)
             updated_product.id = pk
             updated_product.save(force_update=True)
+            messages.success(request, 'Editado Com Sucesso!')
 
-        # TODO importar o messages pra dizer pro user pq o form veio inválido
+            return HttpResponseRedirect(reverse('list-product'))
 
-        return HttpResponseRedirect(reverse('home'))
+        else:
+            messages.error(request, 'Erros nos dados!')
+            return render(request, 'product/edit_product.html', product_form)
 
 
 class ListProduct(ListView):

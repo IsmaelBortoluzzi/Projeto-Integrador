@@ -1,24 +1,16 @@
 from django import forms
-from dal import autocomplete
 
-from supplier.models import Supplier
+from product_brand.models import Brand
+from utils_global.translated_labels import brand_labels
 
-
-class BrandForm(forms.Form):
-    name = forms.CharField(max_length=255, label='Nome', required=True)
-    initials = forms.CharField(max_length=16, label='Iniciais', required=False)  # sigla
+class BrandForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for key, value in self.fields.items():  # pra cada campo, adiciona a classe bootstrap form-control
+        for key, value in self.fields.items():
             value.widget.attrs.update({'class': 'form-control'})
+            value.label = brand_labels.get(value.label)
 
-
-class BrandEditForm(forms.Form):
-    name = forms.CharField(max_length=255, label='Nome', required=True)
-    initials = forms.CharField(max_length=16, label='Iniciais', required=False)  # sigla
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for key, value in self.fields.items():  # pra cada campo, adiciona a classe bootstrap form-control
-            value.widget.attrs.update({'class': 'form-control'})
+    class Meta:
+        model = Brand
+        fields = '__all__'

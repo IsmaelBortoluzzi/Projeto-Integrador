@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView
 
-from product_brand.forms import BrandForm, BrandEditForm
+from product_brand.forms import BrandForm
 from product_brand.models import Brand
 from product_brand.utils import create_brand_from_brandform, create_brand_from_brandeditform
 
@@ -65,7 +65,7 @@ def edit_brand(request, pk):
 
     if request.method == 'GET':
 
-        brand = Brand.objects.filter(id=pk).select_related('supplier').first()
+        brand = Brand.objects.filter(id=pk).first()
 
         if brand is None:
             raise ValueError('marca não existe!')
@@ -73,18 +73,16 @@ def edit_brand(request, pk):
         initial = {
             'name': brand.name,
             'initials': brand.initials,
-            'supplier': brand.supplier,
-            'is_active': brand.is_active,
         }
 
         context = {
-            'brand_form': BrandEditForm(initial=initial)
+            'brand_form': BrandForm(initial=initial)
         }
 
         return render(request, 'brand/create_brand.html', context)
 
     if request.method == 'POST':
-        brand_edit_from = BrandEditForm(request.POST)
+        brand_edit_from = BrandForm(request.POST)
 
         if brand_edit_from.is_valid():
             new_brand = create_brand_from_brandeditform(brand_edit_from, pk, commit=True)

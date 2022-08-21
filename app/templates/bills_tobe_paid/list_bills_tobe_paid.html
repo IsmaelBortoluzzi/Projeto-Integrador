@@ -22,8 +22,7 @@
                             <td>{{ bill_tobe_paid.installment_number }}</td>
                             <td>{{ bill_tobe_paid.installment_value }}</td>
                             <td>{{ bill_tobe_paid.due_date }}</td>
-                            <td>EM DESENVOLVIMENTO</td>
-                            {# <th><a href="{% url 'detail-entry-document' bill_tobe_paid.entry_document %}">Documento de Entrada</a></th>#}
+                            <td><a href="#" onclick="listEntryProducts({{ bill_tobe_paid.entry_document_id }})">Documento de Entrada</a></td>
                             {% if bill_tobe_paid.is_paid %}
                                 <td>A conta já esta paga</td>
                             {% else %}
@@ -38,3 +37,15 @@
 
 {% endblock %}
 
+{% block extrajs %}
+    <script>
+
+        var listEntryProducts = document => {
+            window.location.href = window.location.origin +
+                "{% url 'list-entry-product' %}" +
+                "?document=" +
+                document;
+        }
+
+    </script>
+{% endblock %}

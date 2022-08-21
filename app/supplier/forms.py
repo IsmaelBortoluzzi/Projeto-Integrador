@@ -1,13 +1,15 @@
 import datetime
+
 from django import forms
 
 
 class SupplierForm(forms.Form):
     corporate_name = forms.CharField(max_length=128, required=True, label='Razão Social ')
     fantasy_name = forms.CharField(max_length=128, required=False, label='Nome Fantasia')
-    cnpj = forms.CharField(max_length=14, label='cnpj', required=True)
-    email = forms.EmailField(label='email', required=False)
-    phone_number = forms.CharField(max_length=32, required=False, label='telefone')
+    created = forms.DateField(widget=forms.TextInput(attrs={'type':'date'}), initial= datetime.date.today, label='Data da criação', required=False)
+    cnpj = forms.CharField(max_length=14, label='CNPJ', required=True)
+    email = forms.EmailField(label='Email', required=False)
+    phone_number = forms.CharField(max_length=32, required=False, label='Telefone')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

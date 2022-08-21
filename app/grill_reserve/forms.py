@@ -1,28 +1,21 @@
-from django import forms
+import datetime
+from django.forms import ModelForm, TextInput
 
 from .models import GrillReserve
-from googletrans import Translator
+from utils_global.translated_labels import grill_reserve_labels
 
-
-class GrillReserveForm(forms.ModelForm):
+class GrillReserveForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        translator = Translator()
-        labels = list()
-
-        for key, value in self.fields.items():  # pra cada campo, adiciona a classe bootstrap form-control
-            value.widget.attrs.update({'class': 'form-control'})
-            labels.append(value.label)
-
-        string_to_translate = ' | '.join(labels)
-        string_to_translate = translator.translate(string_to_translate, src='en', dest='pt').text
-        string_to_translate = iter(string_to_translate.split(' |'))
-
         for key, value in self.fields.items():
-            value.label = next(string_to_translate)
+            value.widget.attrs.update({'class': 'form-control'})
+            value.label = grill_reserve_labels.get(value.label)
 
     class Meta:
         model = GrillReserve
         fields = '__all__'
+        widgets = {
+            'start_hour': TextInput(attrs={'type':'datetime-local'}),
+            'finish_hour': TextInput(attrs={'type':'datetime-local'})
+        }

@@ -14,6 +14,8 @@
                         <th>CRIADO EM</th>
                         <th>EMAIL</th>
                         <th>TELEFONE</th>
+                        <th>ENDEREÇO</th>
+                        <th>EDITAR</th>
                     </tr>
                     {% for supplier in suppliers %}
                         <tr>
@@ -25,6 +27,20 @@
                                 <td>{{ supplier.created }}</td>
                                 <td>{{ supplier.email }}</td>
                                 <td>{{ supplier.phone_number }}</td>
+                                {% if supplier.address_id is not None %}
+                                    <td>
+                                        <a href="{% url 'detail-supplier-address' supplier.address_id %}">
+                                            Endereço
+                                        </a>
+                                    </td>
+                                {% else %}
+                                    <td>
+                                        <a onclick="createAddress({{ supplier.pk }})" href="#">
+                                            Cadastrar Endereço
+                                        </a>
+                                    </td>
+                                {% endif %}
+                                <td><a href="{% url 'edit-supplier' supplier.pk %}">Editar</a></td>
                             {% endif %}
                         </tr>
                     {% endfor %}
@@ -33,4 +49,17 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block extrajs %}
+    <script>
+
+        var createAddress = fk => {
+            window.location.href = window.location.origin +
+                "{% url 'create-supplier-address' %}" +
+                "?fk=" +
+                fk;
+        }
+
+    </script>
 {% endblock %}

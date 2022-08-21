@@ -24,18 +24,12 @@
 {#                    </div>#}
 {#                </div>#}
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Ordens (Comandas)
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Venda (Comandas)
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu bg-primary">
-                        <li><a class="dropdown-item text-white" tabindex="-1" href="{% url 'create-order' %}">Adicionar</a></li>
-                        <li><a class="dropdown-item text-white" tabindex="-1" href="{% url 'list-order' %}">Listar</a></li>
-                        <li class="dropdown-submenu bg-primary">
-                            <a class="sub-dropdown no-text-decoration text-white align-drop-down-itens" tabindex="-1" href="#">Produtos de Saida<span class="caret"></span></a>
-                            <ul class="dropdown-menu text-white bg-primary">
-                                <li><a class="dropdown-item text-white" href="{% url 'create-product-output' %}">Adicionar</a></li>
-                                <li><a class="dropdown-item text-white" href="{% url 'list-product-output' %}">Listar</a></li>
-                            </ul>
-                        </li>
+                        <li><a class="dropdown-item text-white" tabindex="-1" href="{% url 'create-order' %}">Nova comanda</a></li>
+                        <li><a class="dropdown-item text-white" tabindex="-1" href="{% url 'create-product-output' %}">Adicionar produtos</a></li>
+                        <li><a class="dropdown-item text-white" tabindex="-1" href="{% url 'list-order' %}">Listar comandas</a></li>
                     </ul>
                 </div>
                 <div class="dropdown">

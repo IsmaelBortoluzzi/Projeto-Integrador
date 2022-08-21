@@ -2,7 +2,6 @@ from django import forms
 
 from product_output.forms import ProductOutputForm
 from .models import Order
-from product.models import Product
 from googletrans import Translator
 
 
@@ -14,7 +13,7 @@ class OrderForm(forms.ModelForm):
         translator = Translator()
         labels = list()
 
-        for key, value in self.fields.items():  # pra cada campo, adiciona a classe bootstrap form-control
+        for key, value in self.fields.items():
             value.widget.attrs.update({'class': 'form-control'})
             labels.append(value.label)
 
@@ -27,7 +26,7 @@ class OrderForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ['client_id', 'selling_date', 'payment_form']
 
 
 class InlineOrderProductForm(OrderForm, ProductOutputForm):

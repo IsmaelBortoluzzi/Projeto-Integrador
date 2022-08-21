@@ -7,9 +7,10 @@
             <form id="address-form" method="post" class="form-horizontal" role="form">
                 {% csrf_token %}
                 <div class="form-group">
+                <h3 class="mt-5">Cadastro de marcas</h3>
                 {% for field in brand_form %}
                     <div class="clearfix visible-sm visible-xs"><br></div>
-                    <label for="{{ field.auto_id }}" class="col-md-3 col-sm-2 col-xs-2">{{ field.label }}</label>
+                    <label for="{{ field.auto_id }}" class="col-md-2 col-sm-2 col-xs-2">{{ field.label }}</label>
                     <div class="col-md-6 col-sm-10 col-xs-10">
                         {{ field }}
                         {% if field.errors %}
@@ -21,6 +22,7 @@
                 </div>
             <button class="btn btn-secondary ml-3 mt-2">Cadastrar</button>
             </form>
+            <br>
         </div>
     </div>
 
