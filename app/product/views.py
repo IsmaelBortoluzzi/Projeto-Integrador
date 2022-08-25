@@ -72,7 +72,7 @@ class ListProduct(ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        query = Product.objects.all()
+        query = Product.objects.all().order_by('id')
 
         if self.codigo:
             query = query.filter(id=self.codigo)

@@ -7,17 +7,17 @@
             <div class="table-responsive">
                 <table class="table table-striped text-white">
                     <tr>
-                        <th>CÓDIGO</th>
-                        <th>QUANTIDADE</th>
-                        <th>NÚMERO DA ORDEM</th>
                         <th>PRODUTO</th>
+                        <th>PREÇO VENDIDO</th>
+                        <th>QUANTIDADE</th>
+                        <th>VALOR TOTAL</th>
                     </tr>
                     {% for product_output in product_outputs %}
                         <tr>
-                            <td>{{ product_output.pk }}</td>
-                            <td>{{ product_output.quantity }}</td>
-                            <td>{{ product_output.order }}</td>
                             <td>{{ product_output.product_id }}</td>
+                            <td>{{ product_output.sold_price }}</td>
+                            <td>{{ product_output.quantity }}</td>
+                            <td>{{ product_output.sales_total }}</td>
                         </tr>
                     {% endfor %}
                 </table>

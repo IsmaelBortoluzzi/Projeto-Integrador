@@ -1,33 +1,39 @@
-from django import forms
+import datetime
 
-from product_output.forms import ProductOutputForm
+from django.forms import ModelForm, TextInput, HiddenInput, DateField
 from .models import Order
-from googletrans import Translator
+from utils_global.translated_labels import order_labels
 
+class OrderForm(ModelForm):
 
-class OrderForm(forms.ModelForm):
+    selling_date = DateField(widget=TextInput(attrs={'type':'date'}), initial= datetime.date.today, label='Selling date', required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        translator = Translator()
-        labels = list()
-
         for key, value in self.fields.items():
             value.widget.attrs.update({'class': 'form-control'})
-            labels.append(value.label)
-
-        string_to_translate = ' | '.join(labels)
-        string_to_translate = translator.translate(string_to_translate, src='en', dest='pt').text
-        string_to_translate = iter(string_to_translate.split(' |'))
-
-        for key, value in self.fields.items():
-            value.label = next(string_to_translate)
+            value.label = order_labels.get(value.label)
 
     class Meta:
         model = Order
-        fields = ['client_id', 'selling_date', 'payment_form']
+        fields = ['client_id', 'selling_date']
+        widgets = {
+            'selling_date': TextInput(attrs={'type':'date'}),
+        }
 
+class OrderPaymentForm(ModelForm):
 
-class InlineOrderProductForm(OrderForm, ProductOutputForm):
-    pass
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for key, value in self.fields.items():
+            value.widget.attrs.update({'class': 'form-control'})
+            value.label = order_labels.get(value.label)
+
+    class Meta:
+        model = Order
+        fields = '__all__'
+        widgets = {
+            'selling_date': HiddenInput(),
+            'client_id': HiddenInput(),
+            'is_active': HiddenInput(),
+        }

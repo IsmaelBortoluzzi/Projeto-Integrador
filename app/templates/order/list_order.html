@@ -9,23 +9,19 @@
                     <tr>
                         <th>CÓDIGO</th>
                         <th>DATA DE CRIAÇÃO</th>
-                        <th>FORMA DE PAGAMENTO</th>
-                        <th>ATIVA?</th>
                         <th>CLIENTE</th>
-                        <th>PRODUTOS DA ORDEM</th>
+                        <th>PRODUTOS DA COMANDA</th>
                         <th>TOTAL</th>
-                        <th>EDITAR</th>
+                        <th>PAGAMENTO</th>
                     </tr>
                     {% for order in orders %}
                         <tr>
                             <td>{{ order.pk }}</td>
                             <td>{{ order.selling_date }}</td>
-                            <td>{{ order.payment_form }}</td>
-                            <td>{{ order.is_active }}</td>
                             <td>{{ order.client_id }}</td>
-                            <td><a href="#" onclick="listProductsOutput({{ order.pk }})">Produtos</a></td>
+                            <td><a href="#" onclick="listProductsOutput({{ order.pk }})">Listar produtos</a></td>
                             <td>{{ order.total }}</td>
-                            <td><a href="#" onclick="deactivateOrder({{ order.pk }})">editar</a></td>
+                            <td><a href="{% url 'edit-order' order.pk %}">Pagar</a></td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -37,20 +33,11 @@
 
 {% block extrajs %}
     <script>
-
         var listProductsOutput = order => {
             window.location.href = window.location.origin +
                 "{% url 'list-product-output' %}" +
                 "?order=" +
                 order;
         }
-
-        var deactivateOrder = order => {
-             window.location.href = window.location.origin +
-                "{% url 'edit-order' %}" +
-                "?order=" +
-                order;
-        }
-
     </script>
 {% endblock %}

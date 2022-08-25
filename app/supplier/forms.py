@@ -13,7 +13,7 @@ class SupplierForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for key, value in self.fields.items():  # pra cada campo, adiciona a classe bootstrap form-control
+        for key, value in self.fields.items():
             value.widget.attrs.update({'class': 'form-control'})
 
     def clean(self):

@@ -2,12 +2,14 @@ import datetime
 from django import forms
 
 from bills_tobe_received.models import BillsToBeReceived
+from order.models import Order
 from utils_global.translated_labels import bills_tobe_received_labels
 
 
 class BillsToBeReceivedForm(forms.ModelForm):
 
-    inclusion_date = forms.DateField(widget=forms.TextInput(attrs={'type':'date'}), initial= datetime.date.today, label='Data da inclusão', required=False)
+    inclusion_date = forms.DateField(widget=forms.TextInput(attrs={'type':'date'}), initial= datetime.date.today, label='Inclusion date', required=False)
+    order_id = forms.ModelChoiceField(queryset=Order.objects.all().filter(is_active=True).order_by('id'), label='Order id', required=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -17,4 +19,4 @@ class BillsToBeReceivedForm(forms.ModelForm):
 
     class Meta:
         model = BillsToBeReceived
-        fields = ['remaining_value', 'order_id']
+        fields = ['order_id', 'remaining_value', 'inclusion_date']

@@ -17,7 +17,7 @@ class Product(models.Model):
     minimum_inventory = models.IntegerField(db_column='minimum_inventory', default=0)
 
     def __str__(self):
-        return f'{self.id}: {self.name}'
+        return f'{self.id}: {self.name} -> R$ {self.selling_price}'
 
     class Meta:
         indexes = [

@@ -7,7 +7,6 @@ from django.contrib import messages
 from product_output.forms import ProductOutputModelForm
 from product_output.models import ProductOutput
 
-
 def create_product_output(request):
     if request.method == 'GET':
         context = {
@@ -22,11 +21,11 @@ def create_product_output(request):
             new_product_output = product_output_form.save(commit=False)
 
             if new_product_output.quantity > new_product_output.product_id.current_inventory - new_product_output.product_id.minimum_inventory:
-                messages.error(request, 'Não tem estoque o suficiente!')
+                messages.error(request, 'Não tem estoque suficiente!')
                 return HttpResponseRedirect(reverse('create-product-output'))
 
             if new_product_output.product_id.current_inventory - new_product_output.quantity < (new_product_output.product_id.current_inventory - new_product_output.product_id.minimum_inventory) * 0.1:
-                messages.warning(request, 'Cuidado! O estaque deste produto está baixo!')
+                messages.warning(request, 'Cuidado! O estoque deste produto está baixo!')
 
             new_product_output.save()
             messages.success(request, 'Salvo Com Sucesso!')
@@ -58,6 +57,5 @@ class ListProductOutput(ListView):
             query = query.filter(id=self.codigo)
         if self.order:
             query = query.filter(order__id=self.order)
-
         return query
 

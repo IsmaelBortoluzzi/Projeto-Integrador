@@ -10,7 +10,7 @@
                         <th>CÓDIGO</th>
                         <th>DATA DE INCLUSÃO</th>
                         <th>VALOR RESTANTE</th>
-                        <th>ORDEM</th>
+                        <th>COMANDA REFERENTE</th>
                         <th>RECEBER</th>
                     </tr>
                     {% for bill_tobe_received in bills_tobe_received %}
@@ -18,7 +18,7 @@
                             <td>{{ bill_tobe_received.pk }}</td>
                             <td>{{ bill_tobe_received.inclusion_date }}</td>
                             <td>{{ bill_tobe_received.remaining_value }}</td>
-                            <td><a href="#" onclick="getOrder({{ bill_tobe_received.order_id.id }})">Ordem</a></td>
+                            <td><a href="#" onclick="listProductsOutput({{ bill_tobe_received.order_id.id }})">Listar produtos</a></td>
                             {% if bill_tobe_received.remaining_value == 0 %}
                                 <td>A conta já esta paga</td>
                             {% else %}
@@ -35,11 +35,11 @@
 
 {% block extrajs %}
 <script>
-        var getOrder = fk => {
+        var listProductsOutput = order => {
             window.location.href = window.location.origin +
-                "{% url 'list-order' %}" +
-                "?codigo=" +
-                fk;
+                "{% url 'list-product-output' %}" +
+                "?order=" +
+                order;
         }
 </script>
 {% endblock %}

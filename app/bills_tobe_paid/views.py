@@ -50,7 +50,7 @@ class ListBillsToBePaid(ListView):
             query = query.filter(id=self.codigo)
         if self.nome:
             query = query.filter(id=self.nome)
-
+        
         return query
 
 

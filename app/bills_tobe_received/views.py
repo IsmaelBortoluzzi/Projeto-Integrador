@@ -2,8 +2,9 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import ListView, DeleteView
+from django.views.generic import ListView
 
+from order.models import Order
 from .forms import BillsToBeReceivedForm
 from .models import BillsToBeReceived
 
@@ -19,11 +20,18 @@ def create_bills_received(request):
         bills_tobe_received_form = BillsToBeReceivedForm(request.POST)
 
         if bills_tobe_received_form.is_valid():
-            new_bills_tobe_received = bills_tobe_received_form.save()
+
+            new_bills_tobe_received = bills_tobe_received_form.save(commit=False)
+
+            updated_order = Order.objects.filter(pk = new_bills_tobe_received.order_id.id)
+            updated_order.update(payment_form = 'À Prazo')
+            updated_order.update(is_active = False)
+            
+            new_bills_tobe_received.save()
 
             messages.success(request, 'Salvo Com Sucesso!')
 
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('list-bills-tobe-received'))
 
 
 class ListBillsToBeReceived(ListView):
@@ -44,7 +52,7 @@ class ListBillsToBeReceived(ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        query = BillsToBeReceived.objects.all().select_related('order_id')
+        query = BillsToBeReceived.objects.all().order_by('id').select_related('order_id')
 
         if self.codigo:
             query = query.filter(id=self.codigo)

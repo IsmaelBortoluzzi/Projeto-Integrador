@@ -7,8 +7,8 @@
             <form id="address-form" method="post" class="form-horizontal" role="form">
                 {% csrf_token %}
                 <div class="form-group">
-                <h3 class="mt-5">Ordem</h3>
-                {% for field in order_form %}
+                <h3 class="mt-5">Comanda</h3>
+                {% for field in order_form.visible_fields %}
                     <div class="clearfix visible-sm visible-xs"><br></div>
 
                     {% if field.label == 'Quantidade' %}

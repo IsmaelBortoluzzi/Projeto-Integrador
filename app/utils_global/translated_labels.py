@@ -22,7 +22,6 @@ bills_tobe_received_labels = {
     'Inclusion date': 'Data da inclusão',
     'Remaining value': 'Valor restante',
     'Order id': 'Comanda referente',
-    'Data da inclusão': 'Data da inclusão',
 }
 
 brand_labels = {
@@ -87,7 +86,7 @@ product_entry_product_label = {
 }
 
 product_output_labels = {
-    'Price sold': 'Preço unitário',
+    'Sold price': 'Preço da venda',
     'Quantity': 'Quantidade',
     'Product id': 'Produto',
     'Order': 'Comanda',

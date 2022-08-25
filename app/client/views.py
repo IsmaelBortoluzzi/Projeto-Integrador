@@ -93,6 +93,8 @@ class ListClient(ListView):
 
         if self.codigo is not None:
             query = query + " WHERE C.id = %s" % str(self.codigo)
+        
+        query = query + ' order by id'
 
         qs = Client.objects.raw(query)
 

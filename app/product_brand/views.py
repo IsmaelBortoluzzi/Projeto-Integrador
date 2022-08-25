@@ -56,6 +56,8 @@ class ListBrand(ListView):
         elif self.nome is not None:
             query = query + " WHERE PC.name = %s" % str(self.nome)
 
+        query = query + " order by id"
+
         qs = Brand.objects.raw(query)
 
         return qs
@@ -68,7 +70,7 @@ def edit_brand(request, pk):
         brand = Brand.objects.filter(id=pk).first()
 
         if brand is None:
-            raise ValueError('marca não existe!')
+            raise ValueError('Marca não existe!')
 
         initial = {
             'name': brand.name,

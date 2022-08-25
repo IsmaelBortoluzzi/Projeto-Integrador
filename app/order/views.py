@@ -1,35 +1,31 @@
 from django.contrib import messages
-from django.db.models import Subquery, OuterRef, Sum
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import ListView
 
-from order.forms import InlineOrderProductForm, OrderForm
+from order.forms import OrderForm, OrderPaymentForm
 from order.models import Order
-from order.utils import create_order_with_one_product
-from product.models import Product
-from product_output.models import ProductOutput
 
 
 def create_order(request):
     if request.method == 'GET':
         context = {
-            'order_form': InlineOrderProductForm(),
+            'order_form': OrderForm(),
         }
         return render(request, 'order/create_order.html', context)
 
     if request.method == 'POST':
-        order_form = InlineOrderProductForm(request.POST)
+        order_form = OrderForm(request.POST)
 
         if order_form.is_valid():
-            new_order = create_order_with_one_product(order_form, commit=True)
+            new_order = order_form.save()
 
             messages.success(request, 'Salvo Com Sucesso!')
         else:
             messages.error(request, 'Não foi possível salvar sua comanda!')
 
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('list-order'))
 
 
 class ListOrder(ListView):
@@ -50,35 +46,28 @@ class ListOrder(ListView):
 
     def get_queryset(self):
         query = """
-            select oo.*, COALESCE((select sum(pop.quantity * pp.selling_price) from product_product pp where pop.product_id = pp.id), 0.00) as total
-            from order_order oo left join product_output_productoutput pop on pop.order_id = oo.id
+            select oo.*, COALESCE((select sum(quantity * sold_price) from product_output_productoutput where order_id = oo.id group by order_id), 0.00)
+            as total from order_order oo where oo.is_active = True order by oo.id
         """
-
-        if self.codigo is not None:
-            query = query + " where oo.id = %s" % str(self.codigo)
-
         query = Order.objects.raw(query)
 
         return query
 
 
-def edit_order(request):
+def edit_order(request, pk):
     if request.method == 'GET':
-        pk = int(request.GET.get('order'))
         context = {
-            'order_form': OrderForm(instance=Order.objects.get(pk=pk))
+            'order_form': OrderPaymentForm(instance=Order.objects.get(pk=pk))
         }
         return render(request, 'order/edit_order.html', context)
 
     if request.method == 'POST':
-        order_form = OrderForm(request.POST)
 
-        if order_form.is_valid():
-            updated_order = order_form.save(commit=False)
-            updated_order.id = int(request.GET.get('order'))
-            updated_order.save(force_update=True)
+        updated_order = Order.objects.filter(pk=pk)
+        updated_order.update(payment_form = request.POST['payment_form'])
+        updated_order.update(is_active = False)
 
-        messages.success(request, 'Editado Com Sucesso!')
+        messages.success(request, 'Pagamento efetuado!')
 
         return HttpResponseRedirect(reverse('list-order'))
 

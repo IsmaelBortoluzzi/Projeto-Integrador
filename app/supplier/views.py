@@ -89,6 +89,8 @@ class ListSupplier(ListView):
         elif self.nome is not None:
             query = query + " WHERE PC.name = %s" % str(self.nome)
 
+        query = query + ' order by id'
+
         qs = Supplier.objects.raw(query)
 
         return qs
