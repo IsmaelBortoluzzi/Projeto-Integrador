@@ -7,7 +7,13 @@ from utils_global.translated_labels import bills_tobe_paid_labels
 
 class BillsToBePaidForm(forms.ModelForm):
 
-    due_date = forms.DateField(widget=forms.TextInput(attrs={'type':'date'}), initial= datetime.date.today, label='Due date')
+    due_date = forms.DateField(
+        widget=forms.TextInput(
+            attrs={'type': 'date'}
+        ),
+        initial=datetime.date.today,
+        label='Due date'
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -17,4 +23,4 @@ class BillsToBePaidForm(forms.ModelForm):
 
     class Meta:
         model = BillsToBePaid
-        fields = ['entry_document', 'bill_type', 'installment_number', 'installment_value']
+        fields = ['entry_document', 'bill_type', 'installment_number', 'due_date', 'installment_value']

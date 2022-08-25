@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'product_entry_document',
     'product_entry_product',
     'product_output',
+    'product_ingredients',
 
     # 3rd part APPS
     'dal',

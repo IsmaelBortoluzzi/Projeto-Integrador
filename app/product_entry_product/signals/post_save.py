@@ -15,3 +15,6 @@ def add_inventory(sender, instance, **kwargs):
     product.current_inventory += instance.quantity
     product.save()
 
+    instance.entry_document.total_value += instance.quantity * instance.cost
+    instance.entry_document.save()
+

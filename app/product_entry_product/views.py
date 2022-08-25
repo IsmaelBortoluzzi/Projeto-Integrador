@@ -23,8 +23,6 @@ def create_entry_product(request):
 
             messages.success(request, 'Salvo Com Sucesso!')
 
-
-
         return HttpResponseRedirect(reverse('create-entry-product'))
 
 

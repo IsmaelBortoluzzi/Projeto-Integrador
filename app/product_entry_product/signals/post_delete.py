@@ -19,3 +19,6 @@ def subtract_inventory(sender, instance, **kwargs):
 
     product.current_inventory = quantity_to_subtract
     product.save()
+
+    instance.entry_document.total_value -= instance.quantity * instance.cost
+    instance.entry_document.save()
