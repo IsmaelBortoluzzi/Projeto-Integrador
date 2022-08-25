@@ -6,7 +6,7 @@ from utils_global.translated_labels import order_labels
 
 class OrderForm(ModelForm):
 
-    selling_date = DateField(widget=TextInput(attrs={'type':'date'}), initial= datetime.date.today, label='Selling date', required=False)
+    selling_date = DateField(widget=TextInput(attrs={'type':'date'}), initial= datetime.date.today, label='Selling date')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

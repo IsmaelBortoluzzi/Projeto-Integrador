@@ -19,4 +19,7 @@ class ProductOutputModelForm(forms.ModelForm):
     class Meta:
         model = ProductOutput
         fields = ['order', 'product_id', 'sold_price', 'quantity']
-
+        widgets = {
+           'sold_price': forms.NumberInput(attrs={'min': '0.01', 'step': '0.01'}),
+           'quantity': forms.NumberInput(attrs={'min': '1', 'step': '1'}),
+        }

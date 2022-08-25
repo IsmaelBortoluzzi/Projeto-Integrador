@@ -8,7 +8,7 @@ from utils_global.translated_labels import bills_tobe_received_labels
 
 class BillsToBeReceivedForm(forms.ModelForm):
 
-    inclusion_date = forms.DateField(widget=forms.TextInput(attrs={'type':'date'}), initial= datetime.date.today, label='Inclusion date', required=False)
+    inclusion_date = forms.DateField(widget=forms.TextInput(attrs={'type':'date'}), initial= datetime.date.today, label='Inclusion date', required=True)
     order_id = forms.ModelChoiceField(queryset=Order.objects.all().filter(is_active=True).order_by('id'), label='Order id', required=True)
 
     def __init__(self, *args, **kwargs):
@@ -20,3 +20,6 @@ class BillsToBeReceivedForm(forms.ModelForm):
     class Meta:
         model = BillsToBeReceived
         fields = ['order_id', 'remaining_value', 'inclusion_date']
+        widgets = {
+           'remaining_value': forms.NumberInput(attrs={'min': '0.01', 'step': '0.01'}),
+        }

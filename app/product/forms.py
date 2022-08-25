@@ -17,7 +17,14 @@ class ProductForm(forms.ModelForm):
         fields = [
                 'name', 'barcode', 'selling_price', 'brand', 'product_category',
                 'description', 'profit_margin', 'current_inventory','minimum_inventory'
-            ]
+        ]
+        widgets = {
+           'barcode': forms.NumberInput(attrs={'min': '1', 'step': '1'}),
+           'selling_price': forms.NumberInput(attrs={'min': '0.01', 'step': '0.01'}),
+           'profit_margin': forms.NumberInput(attrs={'min': '0.01', 'step': '0.01'}),
+           'current_inventory': forms.NumberInput(attrs={'min': '1', 'step': '1'}),
+           'minimum_inventory': forms.NumberInput(attrs={'min': '1', 'step': '1'}),
+        }
 
 class ProductEditForm(forms.ModelForm):
 
@@ -32,4 +39,10 @@ class ProductEditForm(forms.ModelForm):
         fields = [
                 'is_active', 'name', 'barcode', 'selling_price', 'brand', 'product_category',
                 'description', 'profit_margin', 'minimum_inventory'
-            ]
+        ]
+        widgets = {
+           'barcode': forms.NumberInput(attrs={'min': '1', 'step': '1'}),
+           'selling_price': forms.NumberInput(attrs={'min': '0.01', 'step': '0.01'}),
+           'profit_margin': forms.NumberInput(attrs={'min': '0.01', 'step': '0.01'}),
+           'minimum_inventory': forms.NumberInput(attrs={'min': '1', 'step': '1'}),
+        }
