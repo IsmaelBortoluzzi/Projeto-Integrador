@@ -21,16 +21,16 @@ def create_product_output(request):
             new_product_output = product_output_form.save(commit=False)
 
             if new_product_output.quantity > new_product_output.product_id.current_inventory - new_product_output.product_id.minimum_inventory:
-                messages.error(request, 'Não tem estoque suficiente!')
+                messages.error(request, 'Não há estoque suficiente!')
                 return HttpResponseRedirect(reverse('create-product-output'))
 
             if new_product_output.product_id.current_inventory - new_product_output.quantity < (new_product_output.product_id.current_inventory - new_product_output.product_id.minimum_inventory) * 0.1:
                 messages.warning(request, 'Cuidado! O estoque deste produto está baixo!')
 
             new_product_output.save()
-            messages.success(request, 'Salvo Com Sucesso!')
+            messages.success(request, 'O produto foi incluso na comanda!')
 
-        return HttpResponseRedirect(reverse('create-product-output'))
+        return HttpResponseRedirect(reverse('list-product-output') + '?order='+ str(new_product_output.order.id))
 
 
 class ListProductOutput(ListView):
@@ -58,4 +58,3 @@ class ListProductOutput(ListView):
         if self.order:
             query = query.filter(order__id=self.order)
         return query
-

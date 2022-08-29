@@ -3,6 +3,12 @@ from django import forms
 from product.models import Product
 from utils_global.translated_labels import product_labels
 
+CATEGORY_CHOICES = (
+    ('', 'Selecione a categoria'),
+    ('Alimentos', 'Alimentos'),
+    ('Bebidas', 'Bebidas'),
+    ('Outros', 'Outros'),
+)
 
 class ProductForm(forms.ModelForm):
 
@@ -24,6 +30,7 @@ class ProductForm(forms.ModelForm):
            'profit_margin': forms.NumberInput(attrs={'min': '0.01', 'step': '0.01'}),
            'current_inventory': forms.NumberInput(attrs={'min': '1', 'step': '1'}),
            'minimum_inventory': forms.NumberInput(attrs={'min': '1', 'step': '1'}),
+           'product_category': forms.Select(choices=CATEGORY_CHOICES,attrs={'class': 'form-control'}),
         }
 
 class ProductEditForm(forms.ModelForm):
@@ -45,4 +52,5 @@ class ProductEditForm(forms.ModelForm):
            'selling_price': forms.NumberInput(attrs={'min': '0.01', 'step': '0.01'}),
            'profit_margin': forms.NumberInput(attrs={'min': '0.01', 'step': '0.01'}),
            'minimum_inventory': forms.NumberInput(attrs={'min': '1', 'step': '1'}),
+           'product_category': forms.Select(choices=CATEGORY_CHOICES,attrs={'class': 'form-control'}),
         }

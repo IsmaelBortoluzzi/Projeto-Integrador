@@ -2,6 +2,7 @@
 
 {% block content %}
 
+    <h3 class="mt-5">Lista de contas a receber</h3>
     <div class="row mt-lg-5">
         <div class="col-md-12">
             <div class="table-responsive">
@@ -20,7 +21,7 @@
                             <td>{{ bill_tobe_received.remaining_value }}</td>
                             <td><a href="#" onclick="listProductsOutput({{ bill_tobe_received.order_id.id }})">Listar produtos</a></td>
                             {% if bill_tobe_received.remaining_value == 0 %}
-                                <td>A conta já esta paga</td>
+                                <td>A conta já está paga</td>
                             {% else %}
                                 <th><a href="{% url 'receive-bills-tobe-received' bill_tobe_received.pk %}">Receber</a></th>
                             {% endif %}

@@ -2,6 +2,7 @@
 
 {% block content %}
 
+    <h3 class="mt-5">Lista de produtos</h3>
     <div class="row mt-lg-5">
         <div class="col-md-12">
             <div class="table-responsive">
@@ -12,8 +13,7 @@
                         <th>PREÇO DE VENDA</th>
                         <th>CATEGORIA</th>
                         <th>MARGEM DE LUCRO</th>
-                        <th>ATIVO?</th>
-                        <th>QUANTIDADE EM ESTOQUE</th>
+                        <th>ESTOQUE ATUAL</th>
                         <th>DESCRIÇÃO</th>
                         <th>EDITAR</th>
                     </tr>
@@ -24,7 +24,6 @@
                         <td>{{ product.selling_price }}</td>
                         <td>{{ product.product_category }}</td>
                         <td>{{ product.profit_margin }}</td>
-                        <td>{{ product.is_active }}</td>
                         <td>{{ product.current_inventory }}</td>
                         <td>{{ product.description }}</td>
                         <td><a href="{% url 'edit-product' product.pk %}">Editar</a></td>

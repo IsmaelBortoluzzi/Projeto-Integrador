@@ -1,6 +1,6 @@
 import datetime
 
-from django.forms import ModelForm, TextInput, HiddenInput, DateField
+from django.forms import ModelForm, TextInput, HiddenInput, DateField, Select
 from .models import Order
 from utils_global.translated_labels import order_labels
 
@@ -32,7 +32,16 @@ class OrderPaymentForm(ModelForm):
     class Meta:
         model = Order
         fields = '__all__'
+        PAYMENT_CHOICES = (
+            ('', 'Selecione a forma de pagamento'),
+            ('DI', 'Dinheiro'),
+            ('CC', 'Cartão de Crédito'),
+            ('CD', 'Cartão de Débito'),
+            ('PI', 'PIX'),
+            ('OU', 'Outros'),
+        )
         widgets = {
+            'payment_form': Select(choices=PAYMENT_CHOICES,attrs={'class': 'form-control'}),
             'selling_date': HiddenInput(),
             'client_id': HiddenInput(),
             'is_active': HiddenInput(),

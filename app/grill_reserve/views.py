@@ -23,7 +23,7 @@ def create_grill_reserve(request):
 
             messages.success(request, 'Salvo Com Sucesso!')
 
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('list-grill-reserve'))
 
 
 class ListGrillReserve(ListView):
