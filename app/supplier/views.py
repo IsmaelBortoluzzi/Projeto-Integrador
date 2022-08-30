@@ -24,17 +24,21 @@ def create_supplier(request):
         supplier_form = SupplierForm(request.POST)
 
         if supplier_form.is_valid():
-            new_supplier = create_supplier_from_supplierform(supplier_form, commit=True)
+            new_supplier = supplier_form.save()
 
-            messages.success(request, 'Salvo Com Sucesso!')
-
-        return HttpResponseRedirect(reverse('list-supplier'))
+            messages.success(request, 'Salvo com sucesso!')
+            return HttpResponseRedirect(reverse('list-supplier'))
+        
+        else:
+            context = {'supplier_form': supplier_form}
+        return render(request, 'supplier/create_supplier.html', context)
 
 
 def edit_supplier(request, pk):
 
+    supplier = Supplier.objects.get(pk=pk)
+    
     if request.method == 'GET':
-        supplier = Supplier.objects.get(pk=pk)
         initial = {
             'corporate_name': supplier.corporate_name,
             'fantasy_name': supplier.fantasy_name,
@@ -49,16 +53,21 @@ def edit_supplier(request, pk):
         return render(request, 'supplier/edit_supplier.html', context)
 
     if request.method == 'POST':
-        supplier_form = SupplierForm(request.POST)
+        supplier_form = SupplierForm(request.POST, instance=supplier)
 
         if supplier_form.is_valid():
             updated_supplier = create_supplier_from_supplierform(supplier_form, commit=False)
             updated_supplier.id = pk
             updated_supplier.save(force_update=True)
 
-            messages.success(request, 'Editado Com Sucesso!')
+            messages.success(request, 'Editado com sucesso!')
+            return HttpResponseRedirect(reverse('list-supplier'))
+        
+        else:
+            context = {'supplier_form': supplier_form}
+        return render(request, 'supplier/edit_supplier.html', context)
 
-        return HttpResponseRedirect(reverse('list-supplier'))
+
 
 class ListSupplier(ListView):
     model = Supplier

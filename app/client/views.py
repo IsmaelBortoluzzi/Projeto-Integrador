@@ -21,17 +21,22 @@ def create_client(request):
         client_form = ClientForm(request.POST)
 
         if client_form.is_valid():
-            new_client = create_client_from_clientform(client_form, commit=True)
+            client_form.save()
 
             messages.success(request, 'Salvo Com Sucesso!')
 
-        return HttpResponseRedirect(reverse('list-client'))
+            return HttpResponseRedirect(reverse('list-client'))
+
+        else:
+            context = {'client_form': client_form}
+            return render(request, 'client/create_client.html', context)
 
 
 def edit_client(request, pk):
 
+    client = Client.objects.get(pk=pk)
+
     if request.method == 'GET':
-        client = Client.objects.get(pk=pk)
         initial = {
             'full_name': client.full_name,
             'nickname': client.nickname,
@@ -45,16 +50,22 @@ def edit_client(request, pk):
         return render(request, 'client/edit_client.html', context)
 
     if request.method == 'POST':
-        client_form = ClientForm(request.POST)
+        client_form = ClientForm(request.POST, instance=client)
 
         if client_form.is_valid():
             updated_client = create_client_from_clientform(client_form, commit=False)
             updated_client.id = pk
             updated_client.save(force_update=True)
 
-            messages.success(request, 'Editado Com Sucesso!')
+            messages.success(request, 'Editado com sucesso!')
+            return HttpResponseRedirect(reverse('list-client'))
 
-        return HttpResponseRedirect(reverse('list-client'))
+        else:
+            context = {
+                'client_form': client_form
+            }
+            return render(request, 'client/edit_client.html', context)
+
 
 
 def delete_client(request, pk):

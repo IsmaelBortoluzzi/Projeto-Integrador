@@ -95,6 +95,7 @@ product_output_labels = {
 supplier_labels = {
     'Corporate name': 'Razão Social',
     'Fantasy name': 'Nome Fantasia',
+    'Created': 'Data de inauguração',
     'Email': 'Email',
     'Cnpj': 'CNPJ',
     'Phone number': 'Telefone',

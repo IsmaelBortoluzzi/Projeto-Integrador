@@ -1,25 +1,40 @@
 import datetime
 
 from django import forms
+from .models import Client
+from utils_global.translated_labels import client_labels
 
-
-class ClientForm(forms.Form):
-    full_name = forms.CharField(max_length=128, label='Nome')
-    nickname = forms.CharField(max_length=128, label='Apelido', required=False)
-    birth_date = forms.DateField(widget=forms.TextInput(attrs={'type':'date'}), initial= datetime.date.today, label='Data de nascimento', required=False)
-    cpf = forms.CharField(max_length=11, label='CPF')
-    phone_number = forms.CharField(max_length=32, required=False, label='Número de Telefone')
+class ClientForm(forms.ModelForm):
+    full_name = forms.CharField(max_length=128, label='Full name')
+    nickname = forms.CharField(max_length=128, label='Nickname', required=False)
+    birth_date = forms.DateField(widget=forms.TextInput(attrs={'type':'date'}), initial= datetime.date.today, label='Birth date', required=False)
+    cpf = forms.CharField(max_length=11, label='Cpf')
+    phone_number = forms.CharField(max_length=32, required=False, label='Phone number')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for key, value in self.fields.items():
             value.widget.attrs.update({'class': 'form-control'})
+            value.label = client_labels.get(value.label)
 
-    def clean(self):
-        if not self.cleaned_data.get('cpf').isdigit():
+    def clean_cpf(self):
+        cpf = self.cleaned_data.get('cpf')
+        if not cpf.isdigit():
             raise forms.ValidationError('CPF deve conter somente dígitos!')
-            
-        return self.cleaned_data
+        if not len(cpf) == 11:
+            raise forms.ValidationError('CPF deve ter exatamente 11 dígitos!')
+        try:
+            match = Client.objects.get(cpf=cpf)
+            if match.pk == self.instance.pk:
+                return cpf
+            else:
+                raise forms.ValidationError('CPF utilizado em outro cadastro!')
+        except Client.DoesNotExist:
+            return cpf
+
+    class Meta:
+        model = Client
+        fields = '__all__'
 
 
 class AddressForm(forms.Form):
