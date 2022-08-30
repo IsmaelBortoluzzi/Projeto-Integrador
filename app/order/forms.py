@@ -1,12 +1,14 @@
 import datetime
 
-from django.forms import ModelForm, TextInput, HiddenInput, DateField, Select
+from django.forms import ModelForm, TextInput, HiddenInput, DateField, Select, ModelChoiceField
 from .models import Order
+from client.models import Client
 from utils_global.translated_labels import order_labels
 
 class OrderForm(ModelForm):
 
-    selling_date = DateField(widget=TextInput(attrs={'type':'date'}), initial= datetime.date.today, label='Selling date')
+    selling_date = DateField(widget=TextInput(attrs={'type':'date'}), initial= datetime.date.today, label='Selling date', required=True)
+    client_id = ModelChoiceField(queryset=Client.objects.all().order_by('id'), initial = 1, label='Client id', required=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
